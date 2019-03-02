@@ -6,7 +6,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='pyuplift',
-    version='0.0.1',
+    version='0.0.2',
     packages=['pyuplift'],
     url='https://github.com/duketemon/pyuplift',
     license='MIT License',
