@@ -14,23 +14,23 @@ class TwoModel(BaseModel):
         self.no_treatment_model = no_treatment_model
         self.has_treatment_model = has_treatment_model
 
-    def fit(self, x, y, t):
+    def fit(self, X, y, t):
         """The method description you can find in the base class"""
         no_treatment_x, no_treatment_y = [], []
         has_treatment_x, has_treatment_y = [], []
         for idx, el in enumerate(t):
             if el:
-                has_treatment_x.append(x[idx])
+                has_treatment_x.append(X[idx])
                 has_treatment_y.append(y[idx])
             else:
-                no_treatment_x.append(x[idx])
+                no_treatment_x.append(X[idx])
                 no_treatment_y.append(y[idx])
 
         return self.fit2(no_treatment_x, no_treatment_y, has_treatment_x, has_treatment_y)
 
-    def predict(self, x, t=None):
+    def predict(self, X, t=None):
         """The method description you can find in the base class"""
-        return self.has_treatment_model.predict(x) - self.no_treatment_model.predict(x)
+        return self.has_treatment_model.predict(X) - self.no_treatment_model.predict(X)
 
     def fit2(self, no_treatment_x, no_treatment_y, has_treatment_x, has_treatment_y):
         """The alternative fitting method"""
