@@ -3,12 +3,12 @@ class BaseModel:
     Warning: This class should not be used directly. Use derived classes instead.
     """
 
-    def fit(self, x, y, t):
+    def fit(self, X, y, t):
         """Build a TwoModel approach from the training set (x, y, t).
 
         Parameters
         ----------
-        x : numpy array of shape = [n_samples, n_features]
+        X : numpy array of shape = [n_samples, n_features]
             The training input samples.
         y : numpy array of shape = [n_samples] or [n_samples, n_outputs]
             The target values (class labels in classification, real numbers in regression).
@@ -20,18 +20,18 @@ class BaseModel:
         """
         return self
 
-    def predict(self, x, t) -> [float]:
+    def predict(self, X, t):
         """Predict treatment effect for x.
 
         Parameters
         ----------
-        x : numpy array of shape = [n_samples, n_features]
+        X : numpy array of shape = [n_samples, n_features]
             The input samples.
         t : numpy array of shape = [n_samples, n_features]
             The treatments.
         Returns
         -------
         y : array of shape = [n_samples] or [n_samples, n_outputs]
-            The predicted treatment effect.
+            The predicted treatment effects.
         """
         pass
