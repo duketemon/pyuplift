@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='pyuplift',
-    version='0.0.2.1',
+    version='0.0.2.2',
     packages=['pyuplift'],
     url='https://github.com/duketemon/pyuplift',
     license='MIT License',
