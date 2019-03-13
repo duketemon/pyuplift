@@ -1,10 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='pyuplift',
-    version='0.0.2.2',
-    packages=['pyuplift'],
+    version='0.0.2.3',
+    packages=find_packages(),
     url='https://github.com/duketemon/pyuplift',
     license='MIT License',
     author='Artem Kuchumov',
