@@ -1,1 +1,1 @@
-from .test_data import load_test_data
+from .regression import load_linear, load_exponential, load_complex
