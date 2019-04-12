@@ -16,22 +16,19 @@ class Econometric(BaseModel):
 
     def fit(self, X, y, t):
         """The method description you can find in the base class"""
-        x_t = np.append(X, t.reshape((-1, 1)), axis=1)
-        xt = X * t.reshape((-1, 1))
-        x_train = np.append(x_t, xt, axis=1)
+        x_train = self.__get_matrix(X, t)
         self.model.fit(x_train, y)
 
     def predict(self, X, t=None):
         """The method description you can find in the base class"""
-        x_test = self.__get_test_X(X, 0)
-        s0 = self.model.predict(x_test)
-        x_test = self.__get_test_X(X, 1)
-        s1 = self.model.predict(x_test)
-        return s1 - s0
+        x_test = self.__get_matrix(X, np.array(X.shape[0] * [0]))
+        v0 = self.model.predict(x_test)
+        x_test = self.__get_matrix(X, np.array(X.shape[0] * [1]))
+        v1 = self.model.predict(x_test)
+        return v1 - v0
 
-    def __get_test_X(self, X, value):
+    def __get_matrix(self, X, t):
         """Create X|T|X*T matrix"""
-        t = np.array(X.shape[0] * [value])
         x_t = np.append(X, t.reshape((-1, 1)), axis=1)
         xt = X * t.reshape((-1, 1))
         return np.append(x_t, xt, axis=1)
