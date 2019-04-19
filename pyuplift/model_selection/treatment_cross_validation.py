@@ -1,9 +1,8 @@
-import numpy as np
-import pandas as pd
-from statistics import mean
+from pyuplift.metrics import get_average_effect
+from .train_test_split_indexes import train_test_split_indexes
 
 
-def treatment_cross_val_score(x, y, t, model, cv=5, test_share=0.3):
+def treatment_cross_val_score(X, y, t, model, cv=5, train_share=0.7, seeds=None):
     """Evaluate a scores by cross-validation
 
     Parameters
@@ -18,47 +17,30 @@ def treatment_cross_val_score(x, y, t, model, cv=5, test_share=0.3):
         The model of predicting treatment effect.
     cv : int, default: 5
          The number of splits.
-    test_share : callable, default: 0.3
-        The ``test_share`` should be between 0.0 and 1.0 and represent the
+    train_share : callable, default: 0.7
+        The `test_share` should be between 0.0 and 1.0 and represent the
         proportion of the dataset to predict effect.
+    seeds : array, default: None
+        The array of seeds for random generator
     Returns
     -------
     scores : numpy array of floats
     """
-    steps = [0] * cv
-    for i in range(len(y)):
-        steps[i % cv] += 1
-    ind = 0
+
+    if seeds is None:
+        seeds = [None for _ in range(cv)]
+
+    if cv != len(seeds):
+        raise Exception("The length of seed's array  should be equals to cv.")
+
     scores = []
     for i in range(cv):
-        x_train = np.concatenate((x[:ind, :], x[ind + steps[i]:, :]), axis=0)
-        y_train = np.append(y[:ind], y[ind + steps[i]:])
-        t_train = np.append(t[:ind], t[ind + steps[i]:])
-        model.fit(x_train, y_train, t_train)
-
-        x_test = x[ind:ind + steps[i], :]
-        y_test = y[ind:ind + steps[i]]
-        t_test = t[ind:ind + steps[i]]
-        y_pred = model.predict(x_test)
-
-        df = pd.DataFrame(data={
-            'effect': y_pred,
-            'y': y_test,
-            't': t_test
-        })
-
-        df = df.sort_values(by='effect', ascending=False)
-        test_size = int(test_share * df.shape[0])
-        idx, s1, s0 = 0, [], []
-        for _, row in df.iterrows():
-            if idx > test_size:
-                break
-            if row['t'] == 1:
-                s1.append(row['y'])
-            else:
-                s0.append(row['y'])
-            idx += 1
-        scores.append(mean(s1) - mean(s0))
-
-        ind += steps[i]
-    return np.array(scores)
+        train_indexes, test_indexes = train_test_split_indexes(y, train_share, seeds[i])
+        model.fit(X[train_indexes, :], y[train_indexes], t[train_indexes])
+        score = get_average_effect(
+            y[test_indexes],
+            t[test_indexes],
+            model.predict(X[test_indexes, :])
+        )
+        scores.append(score)
+    return scores
