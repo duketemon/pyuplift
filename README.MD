@@ -8,7 +8,12 @@ pip install pyuplift
 python setup.py install
 ```
 
+## Examples of usage
+* [Synthetic dataset](https://github.com/duketemon/pyuplift/blob/master/examples/Synthetic_data-usage.ipynb)
+* [Hillstrom Email Marketing dataset](https://github.com/duketemon/pyuplift/blob/master/examples/Hillstrom_Email_Marketing-usage.ipynb)
+
 ## Compatible with
+* [numpy](https://github.com/numpy/numpy)
 * [sklearn](https://github.com/scikit-learn/scikit-learn)
 
 ## Datasets

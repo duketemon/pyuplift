@@ -19,4 +19,8 @@ def get_average_effect(y_test, t_test, y_pred, test_share=0.3):
         else:
             s0.append(row['y'])
         idx += 1
+    if len(s0) == 0:
+        s0.append(0)
+    if len(s1) == 0:
+        s1.append(0)
     return mean(s1) - mean(s0)

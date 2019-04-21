@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyuplift',
-    version='0.0.2.10',
+    version='0.0.3.0',
     author='Artem Kuchumov',
     author_email='kuchumov7@gmail.com',
     url='https://github.com/duketemon/pyuplift',
