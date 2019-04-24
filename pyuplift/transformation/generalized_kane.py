@@ -12,7 +12,7 @@ class GeneralizedKane(Kane):
     """
 
     def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
-        self.model = model
+        super(Kane, self).__init__(model)
 
     def __get_treatment_count(self, t):
         return sum([el for el in t if el != 0])

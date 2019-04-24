@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-from .base_model import TransformationBaseModel
+from .base import TransformationBaseModel
 
 
 class Reflective(TransformationBaseModel):
@@ -15,7 +15,7 @@ class Reflective(TransformationBaseModel):
     def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
         self.model = model
 
-    def _encode_data(self, y, t):
+    def __encode_data(self, y, t):
         y_values = []
         for i in range(y.shape[0]):
             if self.is_tr(y[i], t[i]):
@@ -29,27 +29,35 @@ class Reflective(TransformationBaseModel):
         return np.array(y_values)
 
     def __set_probabilities(self, y, t):
-        r_count, t_count = 0, 0
-        for i in range(y.shape[0]):
+        t_r, c_r, t_n, c_n = 0, 0, 0, 0
+        r_count, n_count = 0, 0
+        size = y.shape[0]
+        for i in range(size):
             if y[i] != 0:
                 r_count += 1
-                if t[i] == 1:
-                    t_count += 1
-        self.p_tlr = t_count / r_count
-        self.p_clr = (r_count - t_count) / r_count
-
-        n_count, t_count = 0, 0
-        for i in range(y.shape[0]):
-            if y[i] == 0:
+                if t[i] != 0:
+                    # T|R
+                    t_r += 1
+                else:
+                    # C|R
+                    c_r += 1
+            else:
                 n_count += 1
-                if t[i] == 1:
-                    t_count += 1
-        self.p_cln = (n_count - t_count) / n_count
-        self.p_tln = t_count / n_count
+                if t[i] != 0:
+                    # T|N
+                    t_n += 1
+                else:
+                    # C|N
+                    c_n += 1
+
+        self.p_tlr = t_r / r_count
+        self.p_clr = c_r / r_count
+        self.p_cln = c_n / n_count
+        self.p_tln = t_n / n_count
 
     def fit(self, X, y, t):
         """The method description you can find in the base class"""
-        y_encoded = self._encode_data(y, t)
+        y_encoded = self.__encode_data(y, t)
         self.model.fit(X, y_encoded)
         self.__set_probabilities(y, t)
         return self

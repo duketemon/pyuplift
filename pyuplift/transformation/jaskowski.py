@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-from .base_model import TransformationBaseModel
+from .base import TransformationBaseModel
 
 
 class Jaskowski(TransformationBaseModel):

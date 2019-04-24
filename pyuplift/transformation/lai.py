@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-from .base_model import TransformationBaseModel
+from .base import TransformationBaseModel
 
 
 class Lai(TransformationBaseModel):
@@ -15,7 +15,7 @@ class Lai(TransformationBaseModel):
     def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
         self.model = model
 
-    def __encode_data(self, y, t):
+    def _encode_data(self, y, t):
         y_values = []
         for i in range(y.shape[0]):
             if self.is_tr(y[i], t[i]) or self.is_cn(y[i], t[i]):
@@ -26,7 +26,7 @@ class Lai(TransformationBaseModel):
 
     def fit(self, X, y, t):
         """The method description you can find in the base class"""
-        y_encoded = self.__encode_data(y, t)
+        y_encoded = self._encode_data(y, t)
         self.model.fit(X, y_encoded)
         return self
 

@@ -1,10 +1,9 @@
-import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-from .base_model import TransformationBaseModel
+from .lai import Lai
 
 
-class WeightedLai(TransformationBaseModel):
+class WeightedLai(Lai):
     """Weighted Lai approach.
     Method description available in the article
     "A Literature Survey and Experimental Evaluation of the State-of-the-Art in Uplift Modeling:
@@ -13,24 +12,23 @@ class WeightedLai(TransformationBaseModel):
     """
 
     def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
-        self.model = model
+        super(Lai, self).__init__(model)
 
-    def __encode_data(self, y, t):
-        y_values = []
-        self.pos_count = 0
-        self.neg_count = 0
+    def __set_probabilities(self, y, t):
+        pos_count, neg_count = 0, 0
         for i in range(y.shape[0]):
             if self.is_tr(y[i], t[i]) or self.is_cn(y[i], t[i]):
-                y_values.append(1)
-                self.pos_count += 1
+                pos_count += 1
             elif self.is_tn(y[i], t[i]) or self.is_cr(y[i], t[i]):
-                y_values.append(0)
-                self.neg_count += 1
-        return np.array(y_values)
+                neg_count += 1
+
+        self.p_tr_or_cn = pos_count / (pos_count + neg_count)
+        self.p_tn_or_cr = neg_count / (pos_count + neg_count)
 
     def fit(self, X, y, t):
         """The method description you can find in the base class"""
-        y_encoded = self.__encode_data(y, t)
+        y_encoded = self._encode_data(y, t)
+        self.__set_probabilities(y, t)
         self.model.fit(X, y_encoded)
         return self
 
@@ -38,5 +36,4 @@ class WeightedLai(TransformationBaseModel):
         """The method description you can find in the base class"""
         p_tr_cn = self.model.predict_proba(X)[:, 1]
         p_tn_cr = self.model.predict_proba(X)[:, 0]
-        return p_tr_cn * (self.pos_count / (self.pos_count + self.neg_count)) - \
-               p_tn_cr * (self.neg_count / (self.pos_count + self.neg_count))
+        return p_tr_cn * self.p_tr_or_cn - p_tn_cr * self.p_tn_or_cr

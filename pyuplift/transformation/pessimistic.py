@@ -1,6 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 
-from .base_model import TransformationBaseModel
+from .base import TransformationBaseModel
 from .weighted_lai import WeightedLai
 from .reflective import Reflective
 
