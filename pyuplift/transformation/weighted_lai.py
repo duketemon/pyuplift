@@ -12,7 +12,7 @@ class WeightedLai(Lai):
     """
 
     def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
-        super(Lai, self).__init__(model)
+        super().__init__(model)
 
     def __set_probabilities(self, y, t):
         pos_count, neg_count = 0, 0

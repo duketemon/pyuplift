@@ -1,5 +1,5 @@
 ## Installation
-### Install from PyPi
+### Install from PyPI
 ```bash
 pip install pyuplift
 ```
