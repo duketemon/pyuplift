@@ -1,3 +1,5 @@
+import numpy as np
+
 from pyuplift.metrics import get_average_effect
 from .train_test_split_indexes import train_test_split_indexes
 
@@ -31,11 +33,11 @@ def treatment_cross_val_score(X, y, t, model, cv=5, train_share=0.7, seeds=None)
         seeds = [None for _ in range(cv)]
 
     if cv != len(seeds):
-        raise Exception("The length of seed's array  should be equals to cv.")
+        raise Exception("The length of seed's array should be equals to cv.")
 
     scores = []
-    for i in range(cv):
-        train_indexes, test_indexes = train_test_split_indexes(y, train_share, seeds[i])
+    for seed in seeds:
+        train_indexes, test_indexes = train_test_split_indexes(y, train_share, seed)
         model.fit(X[train_indexes, :], y[train_indexes], t[train_indexes])
         score = get_average_effect(
             y[test_indexes],
@@ -43,4 +45,4 @@ def treatment_cross_val_score(X, y, t, model, cv=5, train_share=0.7, seeds=None)
             model.predict(X[test_indexes, :])
         )
         scores.append(score)
-    return scores
+    return np.array(scores)
