@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def load_linear(
+def make_linear_regression(
         size: int,
         x1_params=(0, 100),
         x2_params=(0, 10),
