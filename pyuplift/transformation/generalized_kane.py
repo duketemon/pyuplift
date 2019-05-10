@@ -15,10 +15,10 @@ class GeneralizedKane(Kane):
         super().__init__(model)
 
     def __get_treatment_count(self, t):
-        return sum([el for el in t if el != 0])
+        return len([1 for el in t if el != 0])
 
     def __get_control_count(self, t):
-        return sum([el for el in t if el == 0])
+        return len([1 for el in t if el == 0])
 
     def fit(self, X, y, t):
         """The method description you can find in the base class"""
