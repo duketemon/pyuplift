@@ -25,15 +25,10 @@ class TwoModel(BaseModel):
             else:
                 no_treatment_x.append(X[idx])
                 no_treatment_y.append(y[idx])
-
-        return self.fit2(no_treatment_x, no_treatment_y, has_treatment_x, has_treatment_y)
+        self.no_treatment_model.fit(no_treatment_x, no_treatment_y)
+        self.has_treatment_model.fit(has_treatment_x, has_treatment_y)
+        return self
 
     def predict(self, X, t=None):
         """The method description you can find in the base class"""
         return self.has_treatment_model.predict(X) - self.no_treatment_model.predict(X)
-
-    def fit2(self, no_treatment_x, no_treatment_y, has_treatment_x, has_treatment_y):
-        """The alternative fitting method"""
-        self.no_treatment_model.fit(no_treatment_x, no_treatment_y)
-        self.has_treatment_model.fit(has_treatment_x, has_treatment_y)
-        return self
