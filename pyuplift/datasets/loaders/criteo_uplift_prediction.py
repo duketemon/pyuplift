@@ -6,30 +6,34 @@ from pyuplift.utils import download_file, retrieve_from_gz
 def load_criteo_uplift_prediction(
         url='https://s3.us-east-2.amazonaws.com/criteo-uplift-dataset/criteo-uplift.csv.gz',
 ):
-    """Load the Criteo Uplift Prediction dataset.
+    """Load and return the Criteo Uplift Prediction dataset.
 
-    Data description:
-    This dataset is constructed by assembling data resulting from several incrementality tests, a particular
-    randomized trial procedure where a random part of the population is prevented from being targeted by advertising.
-    It consists of 25M rows, each one representing a user with 11 features,
-    a treatment indicator and 2 labels (visits and conversions).
+    ****************
+    Data description
+    ****************
+    This dataset is constructed by assembling data resulting from several incrementality tests, a particular randomized trial procedure where a random part of the population is prevented from being targeted by advertising.
+    It consists of 25M rows, each one representing a user with 11 features, a treatment indicator and 2 labels (visits and conversions).
 
-    Privacy:
-    For privacy reasons the data has been sub-sampled non-uniformly so that the original incrementality level
-    cannot be deduced from the dataset while preserving a realistic, challenging benchmark.
-    Feature names have been anonymized and their values randomly projected so as to keep predictive power
-    while making it practically impossible to recover the original features or user context.
+    *******
+    Privacy
+    *******
+    For privacy reasons the data has been sub-sampled non-uniformly so that the original incrementality level cannot be deduced from the dataset while preserving a realistic, challenging benchmark.
+    Feature names have been anonymized and their values randomly projected so as to keep predictive power while making it practically impossible to recover the original features or user context.
 
-    ==============          ==============
-    Features                            11
-    Treatment                            2
-    Samples total               25,309,483
-    Average visit rate             0.04132
-    Average conversion rate        0.00229
-    ==============          ==============
+    +--------------------------+------------+
+    |Features                  |         11 |
+    +--------------------------+------------+
+    |Treatment                 |          2 |
+    +--------------------------+------------+
+    |Samples total             | 25,309,483 |
+    +--------------------------+------------+
+    |Average visit rate        |    0.04132 |
+    +--------------------------+------------+
+    |Average conversion rate   |    0.00229 |
+    +--------------------------+------------+
 
     More information about dataset you can find in
-    the official description http://ailab.criteo.com/criteo-uplift-prediction-dataset
+    the `official dataset description <http://ailab.criteo.com/criteo-uplift-prediction-dataset>`_.
 
     Parameters
     ----------

@@ -1,19 +1,71 @@
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 from .base import TransformationBaseModel
 
 
 class Reflective(TransformationBaseModel):
-    """Reflective approach.
-    Method description available in the article
-    "A Literature Survey and Experimental Evaluation of the State-of-the-Art in Uplift Modeling:
-    A Stepping Stone Toward the Development of Prescriptive Analytics"
-    by Floris Devriendt, Darie Moldovan, and Wouter Verbeke
+    """The class which implements the reflective approach.
+
+    +----------------+-----------------------------------------------------------------------------------+
+    | **Parameters** | | **model : object, optional (default=sklearn.linear_model.LogisticRegression)**  |
+    |                | |   The classification model which will be used for predict uplift.               |
+    +----------------+-----------------------------------------------------------------------------------+
+
+
+    *******
+    Methods
+    *******
+    +-----------------------------------------------+----------------------------------------------------+
+    | :ref:`fit(self, X, y, t) <ref_fit>`           | Build the model from the training set (X, y, t).   |
+    +-----------------------------------------------+----------------------------------------------------+
+    | :ref:`predict(self, X, t=None) <ref_predict>` | Predict an uplift for X.                           |
+    +-----------------------------------------------+----------------------------------------------------+
     """
 
-    def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
+    def __init__(self, model=LogisticRegression(n_jobs=-1)):
         self.model = model
+
+    def fit(self, X, y, t):
+        """Build the model from the training set (X, y, t).
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **y: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of target of feature.                                                 |
+        |                  | | **t: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | **self : object**                                                               |
+        +------------------+---------------------------------------------------------------------------------+
+        """
+        y_encoded = self.__encode_data(y, t)
+        self.model.fit(X, y_encoded)
+        self.__set_probabilities(y, t)
+        return self
+
+    def predict(self, X, t=None):
+        """Predict an uplift for X.
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **t: numpy array with shape = [n_samples,] or None**                          |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | | **self : object**                                                             |
+        |                  | |   The predicted values.                                                       |
+        +------------------+---------------------------------------------------------------------------------+
+        """
+        p_tr = self.model.predict_proba(X)[:, 0]
+        p_cn = self.model.predict_proba(X)[:, 1]
+        p_tn = self.model.predict_proba(X)[:, 2]
+        p_cr = self.model.predict_proba(X)[:, 3]
+
+        p_pos = self.p_tlr * p_tr + self.p_cln * p_cn
+        p_neg = self.p_tln * p_tn + self.p_clr * p_cr
+        return p_pos - p_neg
 
     def __encode_data(self, y, t):
         y_values = []
@@ -54,21 +106,3 @@ class Reflective(TransformationBaseModel):
         self.p_clr = c_r / r_count
         self.p_cln = c_n / n_count
         self.p_tln = t_n / n_count
-
-    def fit(self, X, y, t):
-        """The method description you can find in the base class"""
-        y_encoded = self.__encode_data(y, t)
-        self.model.fit(X, y_encoded)
-        self.__set_probabilities(y, t)
-        return self
-
-    def predict(self, X, t=None):
-        """The method description you can find in the base class"""
-        p_tr = self.model.predict_proba(X)[:, 0]
-        p_cn = self.model.predict_proba(X)[:, 1]
-        p_tn = self.model.predict_proba(X)[:, 2]
-        p_cr = self.model.predict_proba(X)[:, 3]
-
-        p_pos = self.p_tlr * p_tr + self.p_cln * p_cn
-        p_neg = self.p_tln * p_tn + self.p_clr * p_cr
-        return p_pos - p_neg

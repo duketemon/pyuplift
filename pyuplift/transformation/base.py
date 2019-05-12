@@ -2,8 +2,9 @@ from pyuplift import BaseModel
 
 
 class TransformationBaseModel(BaseModel):
-    """Base class for transformation uplift models.
-    Warning: This class should not be used directly. Use derived classes instead.
+    """Base class for a transformation uplift models.
+
+    Note: This class should not be used directly. Use derived classes instead.
     """
 
     def is_tr(self, y, t):

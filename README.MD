@@ -1,3 +1,6 @@
+## Related repositories
+* [pyuplift documentation](https://github.com/duketemon/pyuplift-docs)
+
 ## Installation
 ### Install from PyPI
 ```bash

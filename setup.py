@@ -11,7 +11,7 @@ setup(
     description='Uplift modeling implementation',
     keywords=['uplift modeling', 'machine learning', 'true-response-modeling', 'incremental-value-marketing'],
     packages=find_packages(),
-    install_requires=["pandas>=0.23.4", "scikit-learn>=0.20.0"],
+    install_requires=["pandas>=0.23.4", "scikit-learn>=0.20.0", "requests>=2.19.1"],
     classifiers=[
         'Intended Audience :: Science/Research',
         'Intended Audience :: Education',

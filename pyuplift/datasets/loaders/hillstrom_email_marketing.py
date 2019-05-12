@@ -7,29 +7,37 @@ def load_hillstrom_email_marketing(
         load_raw_data=False,
         url='http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv',
 ):
-    """Load the Hillstrom email marketing dataset.
+    """Load and return the Hillstrom Email Marketing dataset.
 
-    Data description:
+    ****************
+    Data description
+    ****************
     This dataset contains 64,000 customers who last purchased within twelve months.
     The customers were involved in an e-mail test.
-    * 1/3 were randomly chosen to receive an e-mail campaign featuring Mens merchandise.
-    * 1/3 were randomly chosen to receive an e-mail campaign featuring Womens merchandise.
-    * 1/3 were randomly chosen to not receive an e-mail campaign.
+
+     * 1/3 were randomly chosen to receive an e-mail campaign featuring Mens merchandise.
+     * 1/3 were randomly chosen to receive an e-mail campaign featuring Womens merchandise.
+     * 1/3 were randomly chosen to not receive an e-mail campaign.
+
     During a period of two weeks following the e-mail campaign, results were tracked.
     Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
 
-
-    ==============          ==============
-    Features                             8
-    Treatment                            3
-    Samples total                   64,000
-    Average spend rate             1.05091
-    Average visit rate             0.14678
-    Average conversion rate        0.00903
-    ==============          ==============
+    +--------------------------+------------+
+    |Features                  |          8 |
+    +--------------------------+------------+
+    |Treatment                 |          3 |
+    +--------------------------+------------+
+    |Samples total             |     64,000 |
+    +--------------------------+------------+
+    |Average spend rate        |    1.05091 |
+    +--------------------------+------------+
+    |Average visit rate        |    0.14678 |
+    +--------------------------+------------+
+    |Average conversion rate   |    0.00903 |
+    +--------------------------+------------+
 
     More information about dataset you can find in
-    the official paper http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf
+    the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
     Parameters
     ----------
@@ -77,7 +85,7 @@ def load_hillstrom_email_marketing(
 
     df = pd.read_csv(file_path)
     if not load_raw_data:
-        df = encode_data(df)
+        df = __encode_data(df)
 
     description = 'This dataset contains 64,000 customers who last purchased within twelve months. ' \
                   'The customers were involved in an e-mail test. ' \
@@ -100,7 +108,7 @@ def load_hillstrom_email_marketing(
     return data
 
 
-def encode_data(df):
+def __encode_data(df):
     df['history_segment'] = df['history_segment'].apply(lambda s: s.split(') ')[1])
     col_name = 'zip_code'
     df = pd.get_dummies(df, columns=[col_name], prefix=col_name)

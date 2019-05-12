@@ -4,23 +4,57 @@ from pyuplift import BaseModel
 
 
 class Dummy(BaseModel):
-    """Dummy (or treatment as variable) approach.
-    Method description available in the article
-    "A Literature Survey and Experimental Evaluation of the State-of-the-Art in Uplift Modeling:
-    A Stepping Stone Toward the Development of Prescriptive Analytics"
-    by Floris Devriendt, Darie Moldovan, and Wouter Verbeke
+    """The class which implements the dummy approach.
+
+    +----------------+-----------------------------------------------------------------------------------+
+    | **Parameters** | | **model : object, optional (default=sklearn.linear_model.LinearRegression)**    |
+    |                | |   The regression model which will be used for predict uplift.                   |
+    +----------------+-----------------------------------------------------------------------------------+
+
+
+    *******
+    Methods
+    *******
+    +-------------------------------------------------+-----------------------------------------------------+
+    | :ref:`fit(self, X, y, t) <dummy_fit>`           | Build a dummy model from the training set (X, y, t).|
+    +-------------------------------------------------+-----------------------------------------------------+
+    | :ref:`predict(self, X, t=None) <dummy_predict>` | Predict an uplift for X.                            |
+    +-------------------------------------------------+-----------------------------------------------------+
     """
     def __init__(self, model=LinearRegression()):
         self.model = model
 
     def fit(self, X, y, t):
-        """The method description you can find in the base class"""
+        """Build a dummy model from the training set (X, y, t).
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **y: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of target of feature.                                                 |
+        |                  | | **t: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | **self : object**                                                               |
+        +------------------+---------------------------------------------------------------------------------+
+        """
         x_train = np.append(X, t.reshape((-1, 1)), axis=1)
         self.model.fit(x_train, y)
         return self
 
     def predict(self, X, t=None):
-        """The method description you can find in the base class"""
+        """Predict an uplift for X.
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **t: numpy array with shape = [n_samples,] or None**                          |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | | **self : object**                                                             |
+        |                  | |   The predicted values.                                                       |
+        +------------------+---------------------------------------------------------------------------------+
+        """
         col = np.array(X.shape[0] * [0])
         x_test = np.append(X, col.reshape((-1, 1)), axis=1)
         # All treatment values == 0

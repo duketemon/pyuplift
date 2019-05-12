@@ -1,21 +1,79 @@
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 from .base import TransformationBaseModel
 
 
 class Kane(TransformationBaseModel):
-    """Kane approach.
-    Method description available in the article
-    "A Literature Survey and Experimental Evaluation of the State-of-the-Art in Uplift Modeling:
-    A Stepping Stone Toward the Development of Prescriptive Analytics"
-    by Floris Devriendt, Darie Moldovan, and Wouter Verbeke
+    """The class which implements the Kane's approach.
+
+    +----------------+-----------------------------------------------------------------------------------+
+    | **Parameters** | | **model : object, optional (default=sklearn.linear_model.LogisticRegression)**  |
+    |                | |   The classification model which will be used for predict uplift.               |
+    |                | | **use_weights : boolean, optional (default=False)**                             |
+    |                | |   Use or not weights?                                                           |
+    +----------------+-----------------------------------------------------------------------------------+
+
+
+    *******
+    Methods
+    *******
+    +-----------------------------------------------+----------------------------------------------------+
+    | :ref:`fit(self, X, y, t) <lai_fit>`           | Build the model from the training set (X, y, t).   |
+    +-----------------------------------------------+----------------------------------------------------+
+    | :ref:`predict(self, X, t=None) <lai_predict>` | Predict an uplift for X.                           |
+    +-----------------------------------------------+----------------------------------------------------+
     """
 
-    def __init__(self, model=RandomForestClassifier(n_jobs=-1)):
+    def __init__(self, model=LogisticRegression(n_jobs=-1), use_weights=False):
         self.model = model
+        self.use_weights = use_weights
 
-    def _encode_data(self, y, t):
+    def fit(self, X, y, t):
+        """Build the model from the training set (X, y, t).
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **y: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of target of feature.                                                 |
+        |                  | | **t: numpy array with shape = [n_samples,]**                                  |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | **self : object**                                                               |
+        +------------------+---------------------------------------------------------------------------------+
+        """
+        y_encoded = self.__encode_data(y, t)
+        self.model.fit(X, y_encoded)
+        if self.use_weights:
+            self.__set_control_count(t)
+            self.__set_treatment_count(t)
+        return self
+
+    def predict(self, X, t=None):
+        """Predict an uplift for X.
+
+        +------------------+---------------------------------------------------------------------------------+
+        | **Parameters**   | | **X: numpy ndarray with shape = [n_samples, n_features]**                     |
+        |                  | |   Matrix of features.                                                         |
+        |                  | | **t: numpy array with shape = [n_samples,] or None**                          |
+        |                  | |   Array of treatments.                                                        |
+        +------------------+---------------------------------------------------------------------------------+
+        | **Returns**      | | **self : object**                                                             |
+        |                  | |   The predicted values.                                                       |
+        +------------------+---------------------------------------------------------------------------------+
+        """
+        p_tr = self.model.predict_proba(X)[:, 0]
+        p_cn = self.model.predict_proba(X)[:, 1]
+        p_tn = self.model.predict_proba(X)[:, 2]
+        p_cr = self.model.predict_proba(X)[:, 3]
+        if self.use_weights:
+            return (p_tr / self.treatment_count + p_cn / self.control_count) - \
+                   (p_tn / self.treatment_count + p_cr / self.control_count)
+        else:
+            return (p_tr + p_cn) - (p_tn + p_cr)
+
+    def __encode_data(self, y, t):
         y_values = []
         for i in range(y.shape[0]):
             if self.is_tr(y[i], t[i]):
@@ -28,16 +86,8 @@ class Kane(TransformationBaseModel):
                 y_values.append(3)
         return np.array(y_values)
 
-    def fit(self, X, y, t):
-        """The method description you can find in the base class"""
-        y_encoded = self._encode_data(y, t)
-        self.model.fit(X, y_encoded)
-        return self
+    def __set_treatment_count(self, t):
+        self.control_count = len([1 for el in t if el != 0])
 
-    def predict(self, X, t=None):
-        """The method description you can find in the base class"""
-        p_tr = self.model.predict_proba(X)[:, 0]
-        p_cn = self.model.predict_proba(X)[:, 1]
-        p_tn = self.model.predict_proba(X)[:, 2]
-        p_cr = self.model.predict_proba(X)[:, 3]
-        return (p_tr + p_cn) - (p_tn + p_cr)
+    def __set_control_count(self, t):
+        self.treatment_count = len([1 for el in t if el == 0])
