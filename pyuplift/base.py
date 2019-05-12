@@ -1,6 +1,7 @@
 class BaseModel:
     """Base class for uplift models.
-    Warning: This class should not be used directly. Use derived classes instead.
+
+    Note: This class should not be used directly. Use derived classes instead.
     """
 
     def fit(self, X, y, t):
