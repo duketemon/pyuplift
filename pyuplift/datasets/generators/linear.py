@@ -86,9 +86,3 @@ def make_linear_regression(
         't': t,
         'y': y
     })
-
-
-df = make_linear_regression(100000)
-print(df['y'].min())
-print(df['y'].max())
-print(df[df['y'] != 0].shape[0] / df.shape[0])
