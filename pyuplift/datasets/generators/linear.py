@@ -10,7 +10,7 @@ def make_linear_regression(
         t_params=(0, 2),
         e_params=(0, 100),
         eps=0.01,
-        seed=777
+        random_state=777
 ):
     """The data generates by formula:
 
@@ -58,14 +58,17 @@ def make_linear_regression(
          E ~ N(mu, sigma)
     eps : float, default: 0.01
          The border value.
-    seed : int, default: 777
+    random_state : int, default: 777
          The random seed.
     Returns
     -------
     dataset : pandas DataFrame
     """
 
-    np.random.seed(seed)
+    if size <= 0:
+        raise ValueError('Size of the dataset should be non negative.')
+
+    np.random.seed(random_state)
     x1 = np.random.normal(*x1_params, size)
     x2 = np.random.normal(*x2_params, size)
     x3 = np.random.normal(*x3_params, size)
