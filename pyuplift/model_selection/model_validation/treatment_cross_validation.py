@@ -27,8 +27,12 @@ def treatment_cross_val_score(X, y, t, model, cv=5, train_share=0.7, seeds=None)
     if seeds is None:
         seeds = [None for _ in range(cv)]
 
-    if cv != len(seeds):
-        raise Exception("The length of seed's array should be equals to cv.")
+    if cv < 1:
+        raise ValueError('Count of validations should be positive integer number.')
+    elif cv != len(seeds):
+        raise ValueError("The length of seed's array should be equals to cv.")
+    elif not (0 < train_share <= 1):
+        raise ValueError('Train share should be float number between 0 and 1.')
 
     scores = []
     for seed in seeds:
