@@ -1,3 +1,8 @@
+![](./resources/pyuplift-logo.png)
+===========
+[![Documentation Status](https://readthedocs.org/projects/pyuplift/badge/?version=latest)](https://pyuplift.readthedocs.io/en/latest/?badge=latest)
+[![GitHub](https://img.shields.io/github/license/duketemon/pyuplift.svg)](./LICENSE)
+
 ## Related repositories
 * [pyuplift documentation](https://github.com/duketemon/pyuplift-docs)
 
