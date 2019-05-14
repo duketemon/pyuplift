@@ -31,6 +31,9 @@ def train_test_split(X, y, t, train_share=0.7, random_state=None):
     +------------------+-----------------------------------------------------------------------------------------+
     """
 
+    if not (0 < train_share <= 1):
+        raise ValueError('Train share should be float number between 0 and 1.')
+
     random.seed(random_state)
     size = len(y)
     train_part_size = int(train_share * size)
