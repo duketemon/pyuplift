@@ -21,7 +21,20 @@ class TwoModel(BaseModel):
     | :ref:`predict(self, X, t=None) <two_predict>` | Predict an uplift for X.                                     |
     +-----------------------------------------------+--------------------------------------------------------------+
     """
+
     def __init__(self, no_treatment_model=LinearRegression(), has_treatment_model=LinearRegression()):
+        try:
+            no_treatment_model.__getattribute__('fit')
+            no_treatment_model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('No treatment model should contains two methods: fit and predict.')
+
+        try:
+            has_treatment_model.__getattribute__('fit')
+            has_treatment_model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Has treatment model should contains two methods: fit and predict.')
+
         self.no_treatment_model = no_treatment_model
         self.has_treatment_model = has_treatment_model
 
@@ -39,6 +52,7 @@ class TwoModel(BaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         no_treatment_x, no_treatment_y = [], []
         has_treatment_x, has_treatment_y = [], []
         for idx, el in enumerate(t):
@@ -65,4 +79,7 @@ class TwoModel(BaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
-        return self.has_treatment_model.predict(X) - self.no_treatment_model.predict(X)
+
+        s1 = self.has_treatment_model.predict(X)
+        s0 = self.no_treatment_model.predict(X)
+        return s1 - s0

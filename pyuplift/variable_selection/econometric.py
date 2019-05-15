@@ -21,7 +21,13 @@ class Econometric(BaseModel):
     | :ref:`predict(self, X, t=None) <eco_predict>` | Predict an uplift for X.                                   |
     +-----------------------------------------------+------------------------------------------------------------+
     """
+
     def __init__(self, model=LinearRegression()):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.model = model
 
     def fit(self, X, y, t):
@@ -38,6 +44,7 @@ class Econometric(BaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         x_train = self.__get_matrix(X, t)
         self.model.fit(x_train, y)
 
@@ -54,6 +61,7 @@ class Econometric(BaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         x_test = self.__get_matrix(X, np.array(X.shape[0] * [0]))
         v0 = self.model.predict(x_test)
         x_test = self.__get_matrix(X, np.array(X.shape[0] * [1]))
@@ -62,6 +70,7 @@ class Econometric(BaseModel):
 
     def __get_matrix(self, X, t):
         """Create X|T|X*T matrix"""
+
         x_t = np.append(X, t.reshape((-1, 1)), axis=1)
         xt = X * t.reshape((-1, 1))
         return np.append(x_t, xt, axis=1)

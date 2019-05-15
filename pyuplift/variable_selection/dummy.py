@@ -21,7 +21,13 @@ class Dummy(BaseModel):
     | :ref:`predict(self, X, t=None) <dummy_predict>` | Predict an uplift for X.                            |
     +-------------------------------------------------+-----------------------------------------------------+
     """
+
     def __init__(self, model=LinearRegression()):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.model = model
 
     def fit(self, X, y, t):
@@ -38,6 +44,7 @@ class Dummy(BaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         x_train = np.append(X, t.reshape((-1, 1)), axis=1)
         self.model.fit(x_train, y)
         return self
@@ -55,6 +62,7 @@ class Dummy(BaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         col = np.array(X.shape[0] * [0])
         x_test = np.append(X, col.reshape((-1, 1)), axis=1)
         # All treatment values == 0
