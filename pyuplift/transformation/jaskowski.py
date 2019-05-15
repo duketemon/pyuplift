@@ -24,6 +24,11 @@ class Jaskowski(TransformationBaseModel):
     """
 
     def __init__(self, model=LogisticRegression(n_jobs=-1)):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.model = model
 
     def fit(self, X, y, t):
@@ -40,6 +45,7 @@ class Jaskowski(TransformationBaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         y_encoded = self.__encode_data(y, t)
         self.model.fit(X, y_encoded)
         return self
@@ -57,6 +63,7 @@ class Jaskowski(TransformationBaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         p = self.model.predict_proba(X)[:, 1]
         return 2 * p - 1
 

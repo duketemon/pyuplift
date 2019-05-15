@@ -24,6 +24,11 @@ class Reflective(TransformationBaseModel):
     """
 
     def __init__(self, model=LogisticRegression(n_jobs=-1)):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.model = model
 
     def fit(self, X, y, t):

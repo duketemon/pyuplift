@@ -25,6 +25,11 @@ class Pessimistic(TransformationBaseModel):
     """
 
     def __init__(self, model=LogisticRegression(n_jobs=-1)):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.w_lai_model = Lai(model, use_weights=True)
         self.reflective_model = Reflective(model)
 
@@ -42,6 +47,7 @@ class Pessimistic(TransformationBaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         self.w_lai_model.fit(X, y, t)
         self.reflective_model.fit(X, y, t)
         return self
@@ -59,6 +65,7 @@ class Pessimistic(TransformationBaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         w_lai_uplift = self.w_lai_model.predict(X)
         reflective_uplift = self.reflective_model.predict(X)
         return (w_lai_uplift + reflective_uplift) / 2

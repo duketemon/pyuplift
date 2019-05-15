@@ -26,6 +26,11 @@ class Lai(TransformationBaseModel):
     """
 
     def __init__(self, model=LogisticRegression(n_jobs=-1), use_weights=False):
+        try:
+            model.__getattribute__('fit')
+            model.__getattribute__('predict')
+        except AttributeError:
+            raise ValueError('Model should contains two methods: fit and predict.')
         self.model = model
         self.use_weights = use_weights
 
