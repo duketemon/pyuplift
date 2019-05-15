@@ -43,9 +43,10 @@ class Lai(TransformationBaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         y_encoded = self.__encode_data(y, t)
         if self.use_weights:
-            self.__set_probabilities(y, t)
+            self.__init_weights(y, t)
         self.model.fit(X, y_encoded)
         return self
 
@@ -62,6 +63,7 @@ class Lai(TransformationBaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         p_tr_cn = self.model.predict_proba(X)[:, 1]
         if self.use_weights:
             p_tn_cr = self.model.predict_proba(X)[:, 0]
@@ -78,7 +80,7 @@ class Lai(TransformationBaseModel):
                 y_values.append(0)
         return np.array(y_values)
 
-    def __set_probabilities(self, y, t):
+    def __init_weights(self, y, t):
         pos_count, neg_count = 0, 0
         for i in range(y.shape[0]):
             if self.is_tr(y[i], t[i]) or self.is_cn(y[i], t[i]):

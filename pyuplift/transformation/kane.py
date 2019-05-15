@@ -43,11 +43,11 @@ class Kane(TransformationBaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         y_encoded = self.__encode_data(y, t)
         self.model.fit(X, y_encoded)
         if self.use_weights:
-            self.__set_control_count(t)
-            self.__set_treatment_count(t)
+            self.__init_weights(t)
         return self
 
     def predict(self, X, t=None):
@@ -63,6 +63,7 @@ class Kane(TransformationBaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         p_tr = self.model.predict_proba(X)[:, 0]
         p_cn = self.model.predict_proba(X)[:, 1]
         p_tn = self.model.predict_proba(X)[:, 2]
@@ -86,8 +87,12 @@ class Kane(TransformationBaseModel):
                 y_values.append(3)
         return np.array(y_values)
 
-    def __set_treatment_count(self, t):
-        self.control_count = len([1 for el in t if el != 0])
-
-    def __set_control_count(self, t):
-        self.treatment_count = len([1 for el in t if el == 0])
+    def __init_weights(self, t):
+        control_count, treatment_count = 0, 0
+        for el in t:
+            if el == 0.0:
+                control_count += 1
+            else:
+                treatment_count += 1
+        self.control_count = control_count
+        self.treatment_count = treatment_count

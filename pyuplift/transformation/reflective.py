@@ -40,9 +40,10 @@ class Reflective(TransformationBaseModel):
         | **Returns**      | **self : object**                                                               |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         y_encoded = self.__encode_data(y, t)
         self.model.fit(X, y_encoded)
-        self.__set_probabilities(y, t)
+        self.__init_weights(y, t)
         return self
 
     def predict(self, X, t=None):
@@ -58,6 +59,7 @@ class Reflective(TransformationBaseModel):
         |                  | |   The predicted values.                                                       |
         +------------------+---------------------------------------------------------------------------------+
         """
+
         p_tr = self.model.predict_proba(X)[:, 0]
         p_cn = self.model.predict_proba(X)[:, 1]
         p_tn = self.model.predict_proba(X)[:, 2]
@@ -80,7 +82,7 @@ class Reflective(TransformationBaseModel):
                 y_values.append(3)
         return np.array(y_values)
 
-    def __set_probabilities(self, y, t):
+    def __init_weights(self, y, t):
         t_r, c_r, t_n, c_n = 0, 0, 0, 0
         r_count, n_count = 0, 0
         size = y.shape[0]
