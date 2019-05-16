@@ -1,27 +1,27 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
-from ..pessimistic import Pessimistic
+from pyuplift.transformation import Lai
 from .test import *
 
 
-def test_pessimistic__right_class():
+def test_lai__right_class():
     model = RandomForestClassifier()
-    Pessimistic(model)
+    Lai(model)
 
 
-def test_pessimistic__empty_class():
+def test_lai__empty_class():
     model = EmptyClass()
     with pytest.raises(ValueError):
-        Pessimistic(model)
+        Lai(model)
 
 
-def test_pessimistic__non_fit_class():
+def test_lai__non_fit_class():
     model = NoFitClass()
     with pytest.raises(ValueError):
-        Pessimistic(model)
+        Lai(model)
 
 
-def test_pessimistic__non_predict_class():
+def test_lai__non_predict_class():
     model = NoPredictClass()
     with pytest.raises(ValueError):
-        Pessimistic(model)
+        Lai(model)

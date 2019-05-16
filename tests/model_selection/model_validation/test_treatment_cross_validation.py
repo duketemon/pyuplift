@@ -1,7 +1,7 @@
 import pytest
 from pyuplift.variable_selection import Dummy
 from pyuplift.datasets import make_linear_regression
-from ..treatment_cross_validation import treatment_cross_val_score
+from pyuplift.model_selection import treatment_cross_val_score
 
 
 model = Dummy()

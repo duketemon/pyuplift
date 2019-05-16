@@ -3,11 +3,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyuplift',
-    version='0.0.3.3',
+    version='0.0.3.5',
+    license='MIT License',
     author='Artem Kuchumov',
     author_email='kuchumov7@gmail.com',
     url='https://github.com/duketemon/pyuplift',
-    license='MIT License',
     description='Uplift modeling implementation',
     keywords=['uplift modeling', 'machine learning', 'true-response-modeling', 'incremental-value-marketing'],
     packages=find_packages(),

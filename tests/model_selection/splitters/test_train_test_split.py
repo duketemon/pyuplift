@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from pyuplift.datasets import make_linear_regression
-from ..train_test_split import train_test_split
+from pyuplift.model_selection import train_test_split
 
 
 def test_train_test_split__default():

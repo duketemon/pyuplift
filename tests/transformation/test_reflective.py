@@ -1,27 +1,27 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
-from ..kane import Kane
+from pyuplift.transformation import Reflective
 from .test import *
 
 
-def test_kane__right_class():
+def test_reflective__right_class():
     model = RandomForestClassifier()
-    Kane(model)
+    Reflective(model)
 
 
-def test_kane__empty_class():
+def test_reflective__empty_class():
     model = EmptyClass()
     with pytest.raises(ValueError):
-        Kane(model)
+        Reflective(model)
 
 
-def test_kane__non_fit_class():
+def test_reflective__non_fit_class():
     model = NoFitClass()
     with pytest.raises(ValueError):
-        Kane(model)
+        Reflective(model)
 
 
-def test_kane__non_predict_class():
+def test_reflective__non_predict_class():
     model = NoPredictClass()
     with pytest.raises(ValueError):
-        Kane(model)
+        Reflective(model)

@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestRegressor
-from ..econometric import Econometric
-from .test import *
+from pyuplift.variable_selection import Econometric
+from tests.variable_selection.test import *
 
 
 def test_econometric__right_class():

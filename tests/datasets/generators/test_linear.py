@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from ..linear import make_linear_regression
+from pyuplift.datasets import make_linear_regression
 
 
 def test_make_linear_regression__repeated_random_state():

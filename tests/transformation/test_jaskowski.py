@@ -1,27 +1,27 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
-from ..lai import Lai
+from pyuplift.transformation import Jaskowski
 from .test import *
 
 
-def test_lai__right_class():
+def test_jaskowski__right_class():
     model = RandomForestClassifier()
-    Lai(model)
+    Jaskowski(model)
 
 
-def test_lai__empty_class():
+def test_jaskowski__empty_class():
     model = EmptyClass()
     with pytest.raises(ValueError):
-        Lai(model)
+        Jaskowski(model)
 
 
-def test_lai__non_fit_class():
+def test_jaskowski__non_fit_class():
     model = NoFitClass()
     with pytest.raises(ValueError):
-        Lai(model)
+        Jaskowski(model)
 
 
-def test_lai__non_predict_class():
+def test_jaskowski__non_predict_class():
     model = NoPredictClass()
     with pytest.raises(ValueError):
-        Lai(model)
+        Jaskowski(model)

@@ -1,6 +1,6 @@
 import pytest
 from sklearn.ensemble import RandomForestRegressor
-from ..two_model import TwoModel
+from pyuplift.variable_selection import TwoModel
 from .test import *
 
 
