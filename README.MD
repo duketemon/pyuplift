@@ -1,12 +1,12 @@
-![](./resources/pyuplift-logo.png)
+![](https://github.com/duketemon/pyuplift/raw/master/resources/pyuplift-logo.png)
 ===========
 [![Documentation Status](https://readthedocs.org/projects/pyuplift/badge/?version=latest)](https://pyuplift.readthedocs.io/en/latest/?badge=latest)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyuplift.svg)
-[![GitHub](https://img.shields.io/github/license/duketemon/pyuplift.svg)](./LICENSE)
+[![GitHub](https://img.shields.io/github/license/duketemon/pyuplift.svg)](https://github.com/duketemon/pyuplift/blob/master/LICENSE)
 
 [Documentation](https://pyuplift.readthedocs.io) |
-[License](LICENSE) |
-[Contributors](CONTRIBUTORS.MD)
+[License](https://github.com/duketemon/pyuplift/blob/master/LICENSE) |
+[Contributors](https://github.com/duketemon/pyuplift/blob/master/CONTRIBUTORS.MD)
 
 ## Related repositories
 * [pyuplift documentation](https://github.com/duketemon/pyuplift-docs)
@@ -39,7 +39,3 @@ python setup.py install
 * Lo VS. The true lift model: a novel data mining approach to response modeling in database marketing. ACM SIGKDD Explorations Newsletter. 2002 Dec 1;4(2):78-86.
 * Guelman L, Guillén M, Pérez-Marín AM. A decision support framework to implement optimal personalized marketing interventions. Decision Support Systems. 2015 Apr 1;72:24-32.
 * Tian L, Alizadeh AA, Gentles AJ, Tibshirani R. A simple method for estimating interactions between a treatment and a large number of covariates. Journal of the American Statistical Association. 2014 Oct 2;109(508):1517-32.
-
-## Communication
-* Email: kuchumov7@gmail.com
-* Telegram: duketemon

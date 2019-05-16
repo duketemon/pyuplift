@@ -1,17 +1,38 @@
+import os
+import codecs
 from setuptools import setup, find_packages
+
+path = os.path.abspath(os.path.dirname(__file__))
+
+
+def read(filename):
+    return codecs.open(os.path.join(path, filename), 'r').read()
 
 
 setup(
     name='pyuplift',
-    version='0.0.3.5',
+    version='0.0.3.6',
     license='MIT License',
     author='Artem Kuchumov',
     author_email='kuchumov7@gmail.com',
     url='https://github.com/duketemon/pyuplift',
     description='Uplift modeling implementation',
-    keywords=['uplift modeling', 'machine learning', 'true-response-modeling', 'incremental-value-marketing'],
+    long_description=read('README.MD'),
+    long_description_content_type='text/markdown',
+    include_package_data=True,
+    zip_safe=False,
     packages=find_packages(),
-    install_requires=["pandas>=0.23.4", "scikit-learn>=0.20.0", "requests>=2.19.1", "pytest>=4.5.0"],
+    keywords=['uplift modeling', 'machine learning', 'true response modeling', 'incremental value marketing'],
+    install_requires=[
+        'pandas>=0.23.4',
+        'scikit-learn>=0.20.0',
+        'requests>=2.19.1',
+    ],
+    extras_require={
+        'tests': [
+            'pytest>=4.5.0'
+        ]
+    },
     classifiers=[
         'Intended Audience :: Science/Research',
         'Intended Audience :: Education',
@@ -21,5 +42,5 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ],
+    ]
 )
