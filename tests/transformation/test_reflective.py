@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
 from pyuplift.transformation import Reflective
-from .test import *
+from .base import *
 
 
 def test_reflective__right_class():

@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
 from pyuplift.transformation import Pessimistic
-from .test import *
+from .base import *
 
 
 def test_pessimistic__right_class():

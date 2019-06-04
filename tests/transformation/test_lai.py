@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
 from pyuplift.transformation import Lai
-from .test import *
+from .base import *
 
 
 def test_lai__right_class():

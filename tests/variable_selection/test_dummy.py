@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestRegressor
 from pyuplift.variable_selection import Dummy
-from .test import *
+from .base import *
 
 
 def test_dummy__right_class():

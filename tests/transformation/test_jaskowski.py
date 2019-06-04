@@ -1,7 +1,7 @@
 import pytest
 from sklearn.ensemble import RandomForestClassifier
 from pyuplift.transformation import Jaskowski
-from .test import *
+from .base import *
 
 
 def test_jaskowski__right_class():
