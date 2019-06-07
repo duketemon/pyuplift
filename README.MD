@@ -5,8 +5,7 @@
 [![GitHub](https://img.shields.io/github/license/duketemon/pyuplift.svg)](https://github.com/duketemon/pyuplift/blob/master/LICENSE)
 
 [Documentation](https://pyuplift.readthedocs.io) |
-[License](https://github.com/duketemon/pyuplift/blob/master/LICENSE) |
-[Contributors](https://github.com/duketemon/pyuplift/blob/master/CONTRIBUTORS.MD)
+[License](https://github.com/duketemon/pyuplift/blob/master/LICENSE)
 
 ## Installation
 ### Install from PyPI
