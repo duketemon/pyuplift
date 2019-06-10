@@ -1,7 +1,8 @@
 ![](https://github.com/duketemon/pyuplift/raw/master/resources/pyuplift-logo.png)
 ===========
 [![Documentation Status](https://readthedocs.org/projects/pyuplift/badge/?version=latest)](https://pyuplift.readthedocs.io/en/latest/?badge=latest)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyuplift.svg)
+[![Build Status](https://travis-ci.org/duketemon/pyuplift.svg?branch=master)](https://travis-ci.org/duketemon/pyuplift)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyuplift.svg)](https://github.com/duketemon/pyuplift)
 [![GitHub](https://img.shields.io/github/license/duketemon/pyuplift.svg)](https://github.com/duketemon/pyuplift/blob/master/LICENSE)
 
 [Documentation](https://pyuplift.readthedocs.io) |
