@@ -182,7 +182,6 @@ def __encode_data(df):
     col_name = 'channel'
     df = pd.get_dummies(df, columns=[col_name], prefix=col_name)
 
-    print(df['segment'].head(20))
     encoder = {'No E-Mail': 0, 'Mens E-Mail': 1, 'Womens E-Mail': 2}
     df['segment'] = df['segment'].apply(lambda k: encoder[k])
     return df
