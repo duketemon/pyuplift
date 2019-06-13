@@ -35,10 +35,13 @@ More information about dataset you can find in
 the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| **Parameters:** | | **load_raw_data**: boolean, default=False                                                                                            |
-|                 | | The loading of raw or preprocessed data?                                                                                             |
-|                 | | **url**: string, default=http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv |
-|                 | | The URL to file with data.                                                                                                           |
+| **Parameters:** | | **data_home**: string, default=None                                                                                                  |
+|                 | |   Specify another download and cache folder for the dataset.                                                                         |
+|                 | |   By default the dataset will be stored in the data folder in the same folder.                                                       |
+|                 | | **load_raw_data**: boolean, default=False                                                                                            |
+|                 | |   The loading of raw or preprocessed data?                                                                                           |
+|                 | | **download_if_not_exist**: boolean, default=True                                                                                     |
+|                 | |   Download the dataset if it is not downloaded.                                                                                      |
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                                    |
 |                 | |   Dictionary object with the following attributes:                                                                                   |
