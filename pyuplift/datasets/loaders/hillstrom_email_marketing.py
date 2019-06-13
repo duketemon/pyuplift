@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 from pyuplift.utils import download_file
 
@@ -39,20 +40,18 @@ def download_hillstrom_email_marketing(
     More information about dataset you can find in
     the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
-    Parameters
-    ----------
-    data_home : str, optional (default=None)
-        Specify another download and cache folder for the dataset.
-        By default the dataset will be stored in the data folder in the same folder.
-    url : str
-        The URL to file with data.
-
-    Returns
-    -------
-
+    +-----------------+----------------------------------------------------------------------------------+
+    | **Parameters**  | | **data_home: string**                                                          |
+    |                 | |   Specify another download and cache folder for the dataset.                   |
+    |                 | |   By default the dataset will be stored in the data folder in the same folder. |
+    |                 | | **url: string**                                                                |
+    |                 | |   The URL to file with data.                                                   |
+    +-----------------+----------------------------------------------------------------------------------+
+    | **Returns**     | **None**                                                                         |
+    +-----------------+----------------------------------------------------------------------------------+
     """
 
-    data_home_path, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
     if not os.path.isdir(data_home):
         os.makedirs(data_home)
 
@@ -63,6 +62,7 @@ def download_hillstrom_email_marketing(
 def load_hillstrom_email_marketing(
     data_home=None,
     load_raw_data=False,
+    download_if_not_exist=True
 ):
     """Load and return the Hillstrom Email Marketing dataset.
 
@@ -103,6 +103,8 @@ def load_hillstrom_email_marketing(
     data_home : str, optional (default=None)
         Specify another download and cache folder for the dataset.
         By default the dataset will be stored in the data folder in the same folder.
+    download_if_not_exist : bool, optional (default=True)
+        Download the dataset if it is not downloaded.
 
     Returns
     -------
@@ -133,16 +135,16 @@ def load_hillstrom_email_marketing(
         Each value corresponds to whether they purchased at the site (“conversion”) during a two-week outcome period.
     """
 
-    #
-    # folder_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
-    # file_path = os.path.join(folder_path, 'hillstrom_email_marketing.csv')
-    # if not os.path.isdir(folder_path):
-    #     os.makedirs(folder_path)
-    #
-    # if not os.path.exists(file_path):
-    #     download_file(url, file_path)
+    data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    if not os.path.exists(dataset_path):
+        if download_if_not_exist:
+            download_hillstrom_email_marketing(data_home)
+        else:
+            raise FileNotFoundError(
+                'The dataset does not exist. '
+                'Use `download_hillstrom_email_marketing` function to download the dataset.'
+            )
 
-    _, dataset_path = __get_data_home_dataset_file_paths(data_home)
     df = pd.read_csv(dataset_path)
     if not load_raw_data:
         df = __encode_data(df)
@@ -155,10 +157,11 @@ def load_hillstrom_email_marketing(
                   'During a period of two weeks following the e-mail campaign, results were tracked. ' \
                   'Your job is to tell the world if the Mens or Womens e-mail campaign was successful.'
 
+    drop_fields = ['spend', 'visit', 'conversion', 'segment']
     data = {
         'DESCR': description,
-        'data': df.drop(['spend', 'visit', 'conversion', 'segment'], axis=1).values,
-        'feature_names': list(filter(lambda x: x not in ['spend', 'visit', 'conversion', 'segment'], df.columns)),
+        'data': df.drop(drop_fields, axis=1).values,
+        'feature_names': np.array(list(filter(lambda x: x not in drop_fields, df.columns))),
         'treatment': df['segment'].values,
         'target': df['spend'].values,
         'target_spend': df['spend'].values,
@@ -179,6 +182,7 @@ def __encode_data(df):
     col_name = 'channel'
     df = pd.get_dummies(df, columns=[col_name], prefix=col_name)
 
+    print(df['segment'].head(20))
     encoder = {'No E-Mail': 0, 'Mens E-Mail': 1, 'Womens E-Mail': 2}
     df['segment'] = df['segment'].apply(lambda k: encoder[k])
     return df
