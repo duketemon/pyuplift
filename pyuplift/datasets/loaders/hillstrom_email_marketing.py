@@ -3,9 +3,66 @@ import pandas as pd
 from pyuplift.utils import download_file
 
 
+def download_hillstrom_email_marketing(
+    data_home=None,
+    url='http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv'
+):
+    """Downloading the Hillstrom Email Marketing dataset.
+
+    ****************
+    Data description
+    ****************
+    This dataset contains 64,000 customers who last purchased within twelve months.
+    The customers were involved in an e-mail test.
+
+     * 1/3 were randomly chosen to receive an e-mail campaign featuring Mens merchandise.
+     * 1/3 were randomly chosen to receive an e-mail campaign featuring Womens merchandise.
+     * 1/3 were randomly chosen to not receive an e-mail campaign.
+
+    During a period of two weeks following the e-mail campaign, results were tracked.
+    Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
+
+    +--------------------------+------------+
+    |Features                  |          8 |
+    +--------------------------+------------+
+    |Treatment                 |          3 |
+    +--------------------------+------------+
+    |Samples total             |     64,000 |
+    +--------------------------+------------+
+    |Average spend rate        |    1.05091 |
+    +--------------------------+------------+
+    |Average visit rate        |    0.14678 |
+    +--------------------------+------------+
+    |Average conversion rate   |    0.00903 |
+    +--------------------------+------------+
+
+    More information about dataset you can find in
+    the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
+
+    Parameters
+    ----------
+    data_home : str, optional (default=None)
+        Specify another download and cache folder for the dataset.
+        By default the dataset will be stored in the data folder in the same folder.
+    url : str
+        The URL to file with data.
+
+    Returns
+    -------
+
+    """
+
+    data_home_path, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    if not os.path.isdir(data_home):
+        os.makedirs(data_home)
+
+    if not os.path.exists(dataset_path):
+        download_file(url, dataset_path)
+
+
 def load_hillstrom_email_marketing(
-        load_raw_data=False,
-        url='http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv',
+    data_home=None,
+    load_raw_data=False,
 ):
     """Load and return the Hillstrom Email Marketing dataset.
 
@@ -43,8 +100,9 @@ def load_hillstrom_email_marketing(
     ----------
     load_raw_data : bool, default: False
         The loading of raw or preprocessed data?
-    url : str
-        The URL to file with data.
+    data_home : str, optional (default=None)
+        Specify another download and cache folder for the dataset.
+        By default the dataset will be stored in the data folder in the same folder.
 
     Returns
     -------
@@ -75,15 +133,17 @@ def load_hillstrom_email_marketing(
         Each value corresponds to whether they purchased at the site (“conversion”) during a two-week outcome period.
     """
 
-    folder_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
-    file_path = os.path.join(folder_path, 'hillstrom_email_marketing.csv')
-    if not os.path.isdir(folder_path):
-        os.makedirs(folder_path)
+    #
+    # folder_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
+    # file_path = os.path.join(folder_path, 'hillstrom_email_marketing.csv')
+    # if not os.path.isdir(folder_path):
+    #     os.makedirs(folder_path)
+    #
+    # if not os.path.exists(file_path):
+    #     download_file(url, file_path)
 
-    if not os.path.exists(file_path):
-        download_file(url, file_path)
-
-    df = pd.read_csv(file_path)
+    _, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    df = pd.read_csv(dataset_path)
     if not load_raw_data:
         df = __encode_data(df)
 
@@ -122,3 +182,10 @@ def __encode_data(df):
     encoder = {'No E-Mail': 0, 'Mens E-Mail': 1, 'Womens E-Mail': 2}
     df['segment'] = df['segment'].apply(lambda k: encoder[k])
     return df
+
+
+def __get_data_home_dataset_file_paths(data_home_path):
+    if data_home_path is None:
+        data_home_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
+    dataset_path = os.path.join(data_home_path, 'hillstrom_email_marketing.csv')
+    return data_home_path, dataset_path
