@@ -14,13 +14,18 @@ def download_file(url: str, output_path: str):
     | **Returns**     | **None**                             |
     +-----------------+--------------------------------------+
     """
-    if not os.path.isfile(output_path):
-        print("Downloading file to '{}'...".format(output_path))
-        response = requests.get(url)
-        # Check if the response is ok (200)
-        if response.status_code == 200:
-            # Open file and write the content
-            with open(output_path, 'wb') as file:
-                # A chunk of 128 bytes
-                for chunk in response:
-                    file.write(chunk)
+
+    if os.path.isfile(output_path):
+        os.remove(output_path)
+
+    print("Downloading file to '{}'...".format(output_path))
+    response = requests.get(url)
+    # Check if the response is ok (200)
+    status_code = int(response.status_code)
+    if status_code == 200:
+        with open(output_path, 'wb') as file:
+            # A chunk of 128 bytes
+            for chunk in response:
+                file.write(chunk)
+    elif status_code == 404:
+        raise Exception('Wrong URL (' + url + ').')
