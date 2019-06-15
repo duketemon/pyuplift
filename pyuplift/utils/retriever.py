@@ -2,7 +2,7 @@ import gzip
 import shutil
 
 
-def retrieve_from_gz(archive_path, output_path):
+def retrieve_from_gz(archive_path: str, output_path: str):
     """The retrieving gz-archived data from `archive_path` to `output_path`.
 
     +-----------------+--------------------------------------+
