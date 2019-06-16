@@ -3,22 +3,88 @@ import pandas as pd
 from pyuplift.utils import download_file, retrieve_from_gz
 
 
-def load_criteo_uplift_prediction(
-        url='https://s3.us-east-2.amazonaws.com/criteo-uplift-dataset/criteo-uplift.csv.gz',
+def download_criteo_uplift_prediction(
+    data_home=None,
+    url='https://s3.us-east-2.amazonaws.com/criteo-uplift-dataset/criteo-uplift.csv.gz'
 ):
-    """Load and return the Criteo Uplift Prediction dataset.
+    """Downloading the Criteo Uplift Prediction dataset.
 
     ****************
     Data description
     ****************
-    This dataset is constructed by assembling data resulting from several incrementality tests, a particular randomized trial procedure where a random part of the population is prevented from being targeted by advertising.
-    It consists of 25M rows, each one representing a user with 11 features, a treatment indicator and 2 labels (visits and conversions).
+    This dataset is constructed by assembling data resulting from several incrementality tests,
+    a particular randomized trial procedure
+    where a random part of the population is prevented from being targeted by advertising.
+    It consists of 25M rows, each one representing a user with 11 features,
+    a treatment indicator and 2 labels (visits and conversions).
 
     *******
     Privacy
     *******
-    For privacy reasons the data has been sub-sampled non-uniformly so that the original incrementality level cannot be deduced from the dataset while preserving a realistic, challenging benchmark.
-    Feature names have been anonymized and their values randomly projected so as to keep predictive power while making it practically impossible to recover the original features or user context.
+    For privacy reasons the data has been sub-sampled non-uniformly so that the original incrementality level
+    cannot be deduced from the dataset while preserving a realistic, challenging benchmark.
+    Feature names have been anonymized and their values randomly projected so as to keep predictive power
+    while making it practically impossible to recover the original features or user context.
+
+    +--------------------------+------------+
+    |Features                  |         11 |
+    +--------------------------+------------+
+    |Treatment                 |          2 |
+    +--------------------------+------------+
+    |Samples total             | 25,309,483 |
+    +--------------------------+------------+
+    |Average visit rate        |    0.04132 |
+    +--------------------------+------------+
+    |Average conversion rate   |    0.00229 |
+    +--------------------------+------------+
+
+    More information about dataset you can find in
+    the `official dataset description <http://ailab.criteo.com/criteo-uplift-prediction-dataset>`_.
+
+    +-----------------+----------------------------------------------------------------------------------+
+    | **Parameters**  | | **data_home: string**                                                          |
+    |                 | |   Specify another download and cache folder for the dataset.                   |
+    |                 | |   By default the dataset will be stored in the data folder in the same folder. |
+    |                 | | **url: string**                                                                |
+    |                 | |   The URL to file with data.                                                   |
+    +-----------------+----------------------------------------------------------------------------------+
+    | **Returns**     | **None**                                                                         |
+    +-----------------+----------------------------------------------------------------------------------+
+    """
+
+    data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    if not os.path.isdir(data_home):
+        os.makedirs(data_home)
+
+    archive_path = dataset_path.replace('.csv', '.gz')
+    if not os.path.exists(dataset_path):
+        if not os.path.exists(archive_path):
+            download_file(url, archive_path)
+        retrieve_from_gz(archive_path, dataset_path)
+
+
+def load_criteo_uplift_prediction(
+    data_home=None,
+    download_if_not_exist=True
+):
+    """Return the Criteo Uplift Prediction dataset.
+
+    ****************
+    Data description
+    ****************
+    This dataset is constructed by assembling data resulting from several incrementality tests,
+    a particular randomized trial procedure
+    where a random part of the population is prevented from being targeted by advertising.
+    It consists of 25M rows, each one representing a user with 11 features,
+    a treatment indicator and 2 labels (visits and conversions).
+
+    *******
+    Privacy
+    *******
+    For privacy reasons the data has been sub-sampled non-uniformly so that the original incrementality level
+    cannot be deduced from the dataset while preserving a realistic, challenging benchmark.
+    Feature names have been anonymized and their values randomly projected so as to keep predictive power
+    while making it practically impossible to recover the original features or user context.
 
     +--------------------------+------------+
     |Features                  |         11 |
@@ -69,19 +135,17 @@ def load_criteo_uplift_prediction(
         Each value corresponds to whether a conversion occurred for this user (binary, label).
     """
 
-    folder_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
-    filename = 'criteo_uplift_prediction'
-    archive_path = os.path.join(folder_path, filename + '.gz')
-    data_path = os.path.join(folder_path, filename + '.csv')
-    if not os.path.isdir(folder_path):
-        os.makedirs(folder_path)
+    data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
+    if not os.path.exists(dataset_path):
+        if download_if_not_exist:
+            download_criteo_uplift_prediction(data_home)
+        else:
+            raise FileNotFoundError(
+                'The dataset does not exist. '
+                'Use `download_criteo_uplift_prediction` function to download the dataset.'
+            )
 
-    if not os.path.exists(data_path):
-        if not os.path.exists(archive_path):
-            download_file(url, archive_path)
-        retrieve_from_gz(archive_path, data_path)
-
-    df = pd.read_csv(data_path)
+    df = pd.read_csv(dataset_path)
     description = 'This dataset is constructed by assembling data resulting from several incrementality tests, ' \
                   'a particular randomized trial procedure where a random part of the population' \
                   'is prevented from being targeted by advertising. It consists of 25M rows, ' \
@@ -98,3 +162,12 @@ def load_criteo_uplift_prediction(
         'target_conversion': df['conversion'].values,
     }
     return dataset
+
+
+def __get_data_home_dataset_file_paths(data_home_path):
+    if data_home_path is None:
+        data_home_path = os.path.join(os.sep.join(__file__.split(os.sep)[:-1]), 'data')
+    dataset_path = os.path.join(data_home_path, 'criteo_uplift_prediction.csv')
+    return data_home_path, dataset_path
+
+
