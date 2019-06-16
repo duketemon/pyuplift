@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 from pyuplift.utils import download_file, retrieve_from_gz
 
@@ -65,7 +66,7 @@ def download_criteo_uplift_prediction(
 
 def load_criteo_uplift_prediction(
     data_home=None,
-    download_if_not_exist=True
+    download_if_missing=True
 ):
     """Return the Criteo Uplift Prediction dataset.
 
@@ -103,8 +104,11 @@ def load_criteo_uplift_prediction(
 
     Parameters
     ----------
-    url : str
-        The URL to file with data.
+    data_home : str, optional (default=None)
+        Specify another download and cache folder for the dataset.
+        By default the dataset will be stored in the data folder in the same folder.
+    download_if_missing : bool, optional (default=True)
+        Download the dataset if it is not downloaded.
 
     Returns
     -------
@@ -137,7 +141,7 @@ def load_criteo_uplift_prediction(
 
     data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
     if not os.path.exists(dataset_path):
-        if download_if_not_exist:
+        if download_if_missing:
             download_criteo_uplift_prediction(data_home)
         else:
             raise FileNotFoundError(
@@ -151,10 +155,12 @@ def load_criteo_uplift_prediction(
                   'is prevented from being targeted by advertising. It consists of 25M rows, ' \
                   'each one representing a user with 11 features, a treatment indicator and ' \
                   '2 labels (visits and conversions).'
+
+    drop_names = ['exposure', 'visit', 'conversion', 'treatment']
     dataset = {
         'DESCR': description,
-        'data': df.drop(['exposure', 'visit', 'conversion', 'treatment'], axis=1).values,
-        'feature_names': list(filter(lambda x: x not in ['exposure', 'visit', 'conversion', 'treatment'], df.columns)),
+        'data': df.drop(drop_names, axis=1).values,
+        'feature_names': np.array([name for name in df.columns if name not in drop_names]),
         'treatment': df['treatment'].values,
         'target': df['visit'].values,
         'target_visit': df['visit'].values,
