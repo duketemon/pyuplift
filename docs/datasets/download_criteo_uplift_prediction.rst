@@ -1,8 +1,8 @@
-#############################
-load_criteo_uplift_prediction
-#############################
+#################################
+download_criteo_uplift_prediction
+#################################
 
-Loading the Criteo Uplift Prediction dataset from the local file.
+Downloading the Criteo Uplift Prediction dataset.
 
 ****************
 Data description
@@ -32,15 +32,14 @@ More information about dataset you can find in
 the `official dataset description <http://ailab.criteo.com/criteo-uplift-prediction-dataset>`_.
 
 +-----------------+---------------------------------------------------------------------------------------------------------------------+
-| **Parameters**  | | **data_home: str**                                                                                                |
-|                 | |   Specify another download and cache folder for the dataset.                                                      |
-|                 | |   By default the dataset will be stored in the data folder in the same folder.                                    |
-|                 | | **download_if_missing: bool, default=True**                                                                       |
-|                 | |   Download the dataset if it is not downloaded.                                                                   |
+| **Parameters:** | | **data_home**: str, default=None                                                                               |
+|                 | |   The URL to file with data.                                                                                      |
+|                 | | **url**: str, default=https://s3.us-east-2.amazonaws.com/criteo-uplift-dataset/criteo-uplift.csv.gz            |
+|                 | |   The URL to file with data.                                                                                      |
 +-----------------+---------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                 |
 |                 | |   Dictionary object with the following attributes:                                                                |
-|                 | | **dataset.DESCR** : str                                                                                           |
+|                 | | **dataset.DESCR** : str                                                                                        |
 |                 | |   Description of the Criteo Uplift Prediction dataset.                                                            |
 |                 | | **dataset.data**: numpy ndarray of shape (25309483, 11)                                                           |
 |                 | |   Each row corresponding to the 11 feature values in order.                                                       |
@@ -64,6 +63,5 @@ Examples
 
 .. code-block:: python3
 
-   from pyuplift.datasets import load_criteo_uplift_prediction
-   df = load_criteo_uplift_prediction()
-   print(df)
+   from pyuplift.datasets import download_criteo_uplift_prediction
+   download_criteo_uplift_prediction()

@@ -68,7 +68,7 @@ def load_criteo_uplift_prediction(
     data_home=None,
     download_if_missing=True
 ):
-    """Return the Criteo Uplift Prediction dataset.
+    """Loading the Criteo Uplift Prediction dataset from the local file.
 
     ****************
     Data description
