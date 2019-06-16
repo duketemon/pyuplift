@@ -36,6 +36,6 @@ def test_load_hillstrom_email_marketing__using_raw_data():
     shutil.rmtree(data_home)
 
 
-def test_load_hillstrom_email_marketing__do_not_download_if_not_exist():
+def test_load_hillstrom_email_marketing__do_not_download_if_missing():
     with pytest.raises(FileNotFoundError):
-        load_hillstrom_email_marketing(data_home=data_home, download_if_not_exist=False)
+        load_hillstrom_email_marketing(data_home=data_home, download_if_missing=False)

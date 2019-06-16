@@ -2,7 +2,7 @@
 load_hillstrom_email_marketing
 ##############################
 
-Load and return the Hillstrom Email Marketing dataset.
+Loading the Hillstrom Email Marketing dataset from the local file.
 
 ****************
 Data description
@@ -35,17 +35,17 @@ More information about dataset you can find in
 the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
-| **Parameters:** | | **data_home**: string, default=None                                                                                                  |
+| **Parameters:** | | **data_home**: str, default=None                                                                                                     |
 |                 | |   Specify another download and cache folder for the dataset.                                                                         |
 |                 | |   By default the dataset will be stored in the data folder in the same folder.                                                       |
-|                 | | **load_raw_data**: boolean, default=False                                                                                            |
+|                 | | **load_raw_data**: bool, default=False                                                                                               |
 |                 | |   The loading of raw or preprocessed data?                                                                                           |
-|                 | | **download_if_not_exist**: boolean, default=True                                                                                     |
+|                 | | **download_if_missing**: bool, default=True                                                                                          |
 |                 | |   Download the dataset if it is not downloaded.                                                                                      |
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                                    |
 |                 | |   Dictionary object with the following attributes:                                                                                   |
-|                 | | **dataset.DESCR** : string                                                                                                           |
+|                 | | **dataset.DESCR** : str                                                                                                           |
 |                 | |   Description of the Hillstrom email marketing dataset.                                                                              |
 |                 | | **dataset.data**: numpy ndarray of shape (64000, 8)                                                                                  |
 |                 | |   Each row corresponding to the 8 feature values in order.                                                                           |

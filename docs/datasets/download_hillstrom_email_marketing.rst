@@ -35,10 +35,10 @@ More information about dataset you can find in
 the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
 +-----------------+----------------------------------------------------------------------------------+
-| **Parameters**  | | **data_home: string**                                                          |
+| **Parameters**  | | **data_home: str**                                                             |
 |                 | |   Specify another download and cache folder for the dataset.                   |
 |                 | |   By default the dataset will be stored in the data folder in the same folder. |
-|                 | | **url: string**                                                                |
+|                 | | **url: str**                                                                   |
 |                 | |   The URL to file with data.                                                   |
 +-----------------+----------------------------------------------------------------------------------+
 | **Returns**     | **None**                                                                         |

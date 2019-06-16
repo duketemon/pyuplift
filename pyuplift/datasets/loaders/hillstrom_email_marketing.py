@@ -62,9 +62,9 @@ def download_hillstrom_email_marketing(
 def load_hillstrom_email_marketing(
     data_home=None,
     load_raw_data=False,
-    download_if_not_exist=True
+    download_if_missing=True
 ):
-    """Load and return the Hillstrom Email Marketing dataset.
+    """Loading the Hillstrom Email Marketing dataset from the local file.
 
     ****************
     Data description
@@ -103,7 +103,7 @@ def load_hillstrom_email_marketing(
     data_home : str, optional (default=None)
         Specify another download and cache folder for the dataset.
         By default the dataset will be stored in the data folder in the same folder.
-    download_if_not_exist : bool, optional (default=True)
+    download_if_missing : bool, optional (default=True)
         Download the dataset if it is not downloaded.
 
     Returns
@@ -137,7 +137,7 @@ def load_hillstrom_email_marketing(
 
     data_home, dataset_path = __get_data_home_dataset_file_paths(data_home)
     if not os.path.exists(dataset_path):
-        if download_if_not_exist:
+        if download_if_missing:
             download_hillstrom_email_marketing(data_home)
         else:
             raise FileNotFoundError(

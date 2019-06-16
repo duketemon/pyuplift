@@ -16,15 +16,15 @@ The pyuplift.datasets module includes utilities to load datasets, including meth
 *******
 Loaders
 *******
-+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-| `datasets.download_criteo_uplift_prediction([data_home, url]) <download_criteo_uplift_prediction.html>`_                            | Downloading the Criteo Uplift Prediction dataset.                  |
-+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-| `datasets.load_criteo_uplift_prediction([data_home, download_if_missing]) <load_criteo_uplift_prediction.html>`_                    | Loading the Criteo Uplift Prediction dataset from the local file.  |
-+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-| `datasets.download_hillstrom_email_marketing([data_home, url]) <download_hillstrom_email_marketing.html>`_                          | Downloading the Hillstrom Email Marketing dataset.                 |
-+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-| `datasets.load_hillstrom_email_marketing([data_home, load_raw_data, download_if_not_exist]) <load_hillstrom_email_marketing.html>`_ | Loading the Hillstrom Email Marketing dataset from the local file. |
-+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
+| `datasets.download_criteo_uplift_prediction([data_home, url]) <download_criteo_uplift_prediction.html>`_                          | Downloading the Criteo Uplift Prediction dataset.                  |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
+| `datasets.load_criteo_uplift_prediction([data_home, download_if_missing]) <load_criteo_uplift_prediction.html>`_                  | Loading the Criteo Uplift Prediction dataset from the local file.  |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
+| `datasets.download_hillstrom_email_marketing([data_home, url]) <download_hillstrom_email_marketing.html>`_                        | Downloading the Hillstrom Email Marketing dataset.                 |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
+| `datasets.load_hillstrom_email_marketing([data_home, load_raw_data, download_if_missing]) <load_hillstrom_email_marketing.html>`_ | Loading the Hillstrom Email Marketing dataset from the local file. |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
 
 **********
 Generators
