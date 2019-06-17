@@ -11,7 +11,7 @@ def read(filename):
 
 setup(
     name='pyuplift',
-    version='0.0.3.6',
+    version='0.0.4.0',
     license='MIT License',
     author='Artem Kuchumov',
     author_email='kuchumov7@gmail.com',
@@ -37,7 +37,9 @@ setup(
         'Intended Audience :: Science/Research',
         'Intended Audience :: Education',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries',
