@@ -18,23 +18,6 @@ def get_average_effect(y_test, t_test, y_pred, test_share=0.3):
     | **Returns:**    | | **average effect**: float                                                      |
     |                 | |   Average effect on the test set.                                              |
     +-----------------+----------------------------------------------------------------------------------+
-
-    ********
-    Examples
-    ********
-
-    .. code-block:: python3
-
-       from pyuplift.metrics import get_average_effect
-       ...
-       train_indexes, test_indexes = train_test_split_indexes(y, train_share, seed)
-       model.fit(X[train_indexes, :], y[train_indexes], t[train_indexes])
-       effect = get_average_effect(
-              y[test_indexes],
-              t[test_indexes],
-              model.predict(X[test_indexes, :])
-       )
-       print(effect)
     """
 
     df = pd.DataFrame(data={
@@ -46,13 +29,13 @@ def get_average_effect(y_test, t_test, y_pred, test_share=0.3):
     test_size = int(test_share * df.shape[0])
     idx, s1, s0 = 0, [], []
     for _, row in df.iterrows():
+        idx += 1
         if idx > test_size:
             break
         if row['t'] == 1:
             s1.append(row['y'])
         else:
             s0.append(row['y'])
-        idx += 1
     if len(s0) == 0:
         s0.append(0)
     if len(s1) == 0:
