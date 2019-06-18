@@ -26,11 +26,7 @@ Examples
 
    from pyuplift.metrics import get_average_effect
    ...
-   train_indexes, test_indexes = train_test_split_indexes(y, train_share, seed)
-   model.fit(X[train_indexes, :], y[train_indexes], t[train_indexes])
-   effect = get_average_effect(
-          y[test_indexes],
-          t[test_indexes],
-          model.predict(X[test_indexes, :])
-   )
+   model.fit(X_train, y_train, t_train)
+   y_pred = model.predict(X_test)
+   effect = get_average_effect(y_test, t_test, y_pred, test_share)
    print(effect)
