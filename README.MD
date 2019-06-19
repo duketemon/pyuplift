@@ -26,6 +26,7 @@ python setup.py install
 ## Uplift datasets
 * [Criteo Uplift Prediction](http://ailab.criteo.com/criteo-uplift-prediction-dataset)
 * [Hillstrom Email Marketing](https://blog.minethatdata.com/2008/05/best-answer-e-mail-analytics-challenge.html)
+* [Lalonde NSW](https://users.nber.org/~rdehejia/nswdata.html)
 
 ## Compatible with
 * [numpy](https://github.com/numpy/numpy)
