@@ -16,6 +16,8 @@ pip install pyuplift
 ```
 ### Install from source code
 ```bash
+git clone https://github.com/duketemon/pyuplift.git
+cd pyuplift
 python setup.py install
 ```
 
