@@ -1,5 +1,5 @@
 from .loaders.criteo_uplift_prediction import download_criteo_uplift_prediction, load_criteo_uplift_prediction
 from .loaders.hillstrom_email_marketing import download_hillstrom_email_marketing, load_hillstrom_email_marketing
-from .loaders.lalonde_nsw import download_lalonde_nsw
+from .loaders.lalonde_nsw import download_lalonde_nsw, load_lalonde_nsw
 
 from .generators.linear import make_linear_regression
