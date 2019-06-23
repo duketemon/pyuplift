@@ -31,8 +31,8 @@ python setup.py install
 * [Lalonde NSW](https://users.nber.org/~rdehejia/nswdata.html)
 
 ## Compatible with
-* [numpy](https://github.com/numpy/numpy)
-* [sklearn](https://github.com/scikit-learn/scikit-learn)
+* [NumPy](https://github.com/numpy/numpy)
+* [Scikit-learn](https://github.com/scikit-learn/scikit-learn)
 
 ## References
 * Devriendt F, Moldovan D, Verbeke W. A literature survey and experimental evaluation of the state-of-the-art in uplift modeling: A stepping stone toward the development of prescriptive analytics. Big data. 2018 Mar 1;6(1):13-41.
