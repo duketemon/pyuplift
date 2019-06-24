@@ -7,6 +7,7 @@
 
 [Documentation](https://pyuplift.readthedocs.io) •
 [License](https://github.com/duketemon/pyuplift/blob/master/LICENSE) •
+[How to contribute](#how-to-contribute) •
 [Uplift datasets](#uplift-datasets)
 
 ## Installation
@@ -20,10 +21,6 @@ git clone https://github.com/duketemon/pyuplift.git
 cd pyuplift
 python setup.py install
 ```
-
-## Examples of usage
-* [Synthetic dataset](https://github.com/duketemon/pyuplift/blob/master/examples/Synthetic_data-usage.ipynb)
-* [Hillstrom Email Marketing dataset](https://github.com/duketemon/pyuplift/blob/master/examples/Hillstrom_Email_Marketing-usage.ipynb)
 
 ## How to contribute
 Any contributions are always welcomed. There is a lot of ways how you can help to the project.
