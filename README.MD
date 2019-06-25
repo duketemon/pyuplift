@@ -26,7 +26,7 @@ python setup.py install
 Any contributions are always welcomed. There is a lot of ways how you can help to the project.
 * Contribute to the [tests](https://github.com/duketemon/pyuplift/tree/master/tests) to make it more reliable.
 * Contribute to the [documentation](https://github.com/duketemon/pyuplift/tree/master/docs) to make it clearer for everyone.
-* Contribute to the [tutorials]((https://github.com/duketemon/pyuplift/tree/master/tutorials)) to share your experience with other users.
+* Contribute to the [tutorials](https://github.com/duketemon/pyuplift/tree/master/tutorials) to share your experience with other users.
 * Look for [issues with tag "help wanted"](https://github.com/duketemon/pyuplift/issues?q=is%3Aissue+is%3Aopen+label%3A"help+wanted") and submit pull requests to address them.
 * [Open an issue](https://github.com/duketemon/pyuplift/issues) to report problems or recommend new features.
 
