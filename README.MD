@@ -8,7 +8,8 @@
 [Documentation](https://pyuplift.readthedocs.io) •
 [License](https://github.com/duketemon/pyuplift/blob/master/LICENSE) •
 [How to contribute](#how-to-contribute) •
-[Uplift datasets](#uplift-datasets)
+[Uplift datasets](#uplift-datasets) •
+[Inspiration](#inspiration)
 
 ## Installation
 ### Install from PyPI
@@ -38,6 +39,11 @@ Any contributions are always welcomed. There is a lot of ways how you can help t
 ## Compatible with
 * [NumPy](https://github.com/numpy/numpy)
 * [Scikit-learn](https://github.com/scikit-learn/scikit-learn)
+
+## Inspiration
+* [Identifying Individuals Who Are Truly Impacted by Treatment](https://www.researchgate.net/profile/Victor_Lo3/publication/270217235_Identifying_Individuals_Who_Are_Truly_Impacted_by_Treatment_Introduction_to_Recent_Advances_in_Uplift_Modeling/links/54a2dbbf0cf257a63604da2a/Identifying-Individuals-Who-Are-Truly-Impacted-by-Treatment-Introduction-to-Recent-Advances-in-Uplift-Modeling.pdf)
+* [Pinpointing the Persuadables: Convincing the Right Voters to Support Barack Obama](https://www.predictiveanalyticsworld.com/patimes/video-dan-porter-clip/2957)
+* [Revenue Uplift Modeling](https://www.researchgate.net/publication/321729653_Revenue_Uplift_Modeling)
 
 ## References
 * Devriendt F, Moldovan D, Verbeke W. A literature survey and experimental evaluation of the state-of-the-art in uplift modeling: A stepping stone toward the development of prescriptive analytics. Big data. 2018 Mar 1;6(1):13-41.
