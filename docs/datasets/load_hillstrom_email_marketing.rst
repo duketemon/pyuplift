@@ -7,15 +7,13 @@ Loading the Hillstrom Email Marketing dataset from the local file.
 ****************
 Data description
 ****************
-This dataset contains 64,000 customers who last purchased within twelve months.
-The customers were involved in an e-mail test.
+This dataset contains 64,000 customers who last purchased within twelve months. The customers were involved in an e-mail test.
 
  * 1/3 were randomly chosen to receive an e-mail campaign featuring Mens merchandise.
  * 1/3 were randomly chosen to receive an e-mail campaign featuring Womens merchandise.
  * 1/3 were randomly chosen to not receive an e-mail campaign.
 
-During a period of two weeks following the e-mail campaign, results were tracked.
-Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
+During a period of two weeks following the e-mail campaign, results were tracked. Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
 
 +--------------------------+------------+
 | Features                 |          8 |
@@ -31,8 +29,7 @@ Your job is to tell the world if the Mens or Womens e-mail campaign was successf
 | Average conversion rate  |    0.00903 |
 +--------------------------+------------+
 
-More information about dataset you can find in
-the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
+More information about dataset you can find in the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challenge_2008.04.30.pdf>`_.
 
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | **Parameters:** | | **data_home**: str, default=None                                                                                                     |
