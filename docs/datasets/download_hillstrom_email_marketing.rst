@@ -18,17 +18,17 @@ During a period of two weeks following the e-mail campaign, results were tracked
 Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
 
 +--------------------------+------------+
-|Features                  |          8 |
+| Features                 |          8 |
 +--------------------------+------------+
-|Treatment                 |          3 |
+| Treatment                |          3 |
 +--------------------------+------------+
-|Samples total             |     64,000 |
+| Samples total            |     64,000 |
 +--------------------------+------------+
-|Average spend rate        |    1.05091 |
+| Average spend rate       |    1.05091 |
 +--------------------------+------------+
-|Average visit rate        |    0.14678 |
+| Average visit rate       |    0.14678 |
 +--------------------------+------------+
-|Average conversion rate   |    0.00903 |
+| Average conversion rate  |    0.00903 |
 +--------------------------+------------+
 
 More information about dataset you can find in

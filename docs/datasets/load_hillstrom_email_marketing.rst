@@ -18,17 +18,17 @@ During a period of two weeks following the e-mail campaign, results were tracked
 Your job is to tell the world if the Mens or Womens e-mail campaign was successful.
 
 +--------------------------+------------+
-|Features                  |          8 |
+| Features                 |          8 |
 +--------------------------+------------+
-|Treatment                 |          3 |
+| Treatment                |          3 |
 +--------------------------+------------+
-|Samples total             |     64,000 |
+| Samples total            |     64,000 |
 +--------------------------+------------+
-|Average spend rate        |    1.05091 |
+| Average spend rate       |    1.05091 |
 +--------------------------+------------+
-|Average visit rate        |    0.14678 |
+| Average visit rate       |    0.14678 |
 +--------------------------+------------+
-|Average conversion rate   |    0.00903 |
+| Average conversion rate  |    0.00903 |
 +--------------------------+------------+
 
 More information about dataset you can find in
@@ -45,7 +45,7 @@ the `official paper <http://minethatdata.com/Stochastic_Solutions_E-Mail_Challen
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                                    |
 |                 | |   Dictionary object with the following attributes:                                                                                   |
-|                 | | **dataset.DESCR** : str                                                                                                           |
+|                 | | **dataset.description** : str                                                                                                        |
 |                 | |   Description of the Hillstrom email marketing dataset.                                                                              |
 |                 | | **dataset.data**: numpy ndarray of shape (64000, 8)                                                                                  |
 |                 | |   Each row corresponding to the 8 feature values in order.                                                                           |
@@ -70,5 +70,5 @@ Examples
 .. code-block:: python3
 
    from pyuplift.datasets import load_hillstrom_email_marketing
-   df = load_hillstrom_email_marketing(10000)
+   df = load_hillstrom_email_marketing()
    print(df)

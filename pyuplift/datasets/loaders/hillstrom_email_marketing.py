@@ -110,7 +110,7 @@ def load_hillstrom_email_marketing(
     -------
     dataset : dict object with the following attributes:
 
-    dataset.DESCR : str
+    dataset.description : str
         Description of the Hillstrom email marketing dataset.
 
     dataset.data : ndarray, shape (64000, 8)
@@ -159,7 +159,7 @@ def load_hillstrom_email_marketing(
 
     drop_fields = ['spend', 'visit', 'conversion', 'segment']
     data = {
-        'DESCR': description,
+        'description': description,
         'data': df.drop(drop_fields, axis=1).values,
         'feature_names': np.array(list(filter(lambda x: x not in drop_fields, df.columns))),
         'treatment': df['segment'].values,
