@@ -7,8 +7,7 @@ Loading the Lalonde NSW dataset from the local file.
 ****************
 Data description
 ****************
-The dataset contains the treated and control units from the male sub-sample
-from the National Supported Work Demonstration as used by Lalonde in his paper.
+The dataset contains the treated and control units from the male sub-sample from the National Supported Work Demonstration as used by Lalonde in his paper.
 
 +--------------------------+------------+
 | Features                 |          7 |
@@ -44,7 +43,7 @@ More information about dataset you can find `here <https://users.nber.org/~rdehe
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                                    |
 |                 | |   Dictionary object with the following attributes:                                                                                   |
-|                 | | **dataset.DESCR** : str                                                                                                              |
+|                 | | **dataset.description** : str                                                                                                        |
 |                 | |   Description of the Hillstrom email marketing dataset.                                                                              |
 |                 | | **dataset.data**: numpy ndarray of shape (722, 7)                                                                                    |
 |                 | |   Each row corresponding to the 7 feature values in order.                                                                           |

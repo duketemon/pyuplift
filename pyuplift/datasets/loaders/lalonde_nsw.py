@@ -34,11 +34,11 @@ def download_lalonde_nsw(
     from the National Supported Work Demonstration as used by Lalonde in his paper.
 
     +--------------------------+------------+
-    |Features                  |          7 |
+    | Features                 |          7 |
     +--------------------------+------------+
-    |Treatment                 |          2 |
+    | Treatment                |          2 |
     +--------------------------+------------+
-    |Samples total             |        722 |
+    | Samples total            |        722 |
     +--------------------------+------------+
 
     More information about dataset you can find `here <https://users.nber.org/~rdehejia/nswdata.html>`_.
@@ -115,11 +115,11 @@ def load_lalonde_nsw(
     from the National Supported Work Demonstration as used by Lalonde in his paper.
 
     +--------------------------+------------+
-    |Features                  |          7 |
+    | Features                 |          7 |
     +--------------------------+------------+
-    |Treatment                 |          2 |
+    | Treatment                |          2 |
     +--------------------------+------------+
-    |Samples total             |        722 |
+    | Samples total            |        722 |
     +--------------------------+------------+
 
     More information about dataset you can find `here <https://users.nber.org/~rdehejia/nswdata.html>`_.

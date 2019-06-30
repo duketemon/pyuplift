@@ -7,8 +7,7 @@ Downloading the Lalonde NSW dataset.
 ****************
 Data description
 ****************
-The dataset contains the treated and control units from the male sub-sample
-from the National Supported Work Demonstration as used by Lalonde in his paper.
+The dataset contains the treated and control units from the male sub-sample from the National Supported Work Demonstration as used by Lalonde in his paper.
 
 +--------------------------+------------+
 | Features                 |          7 |
