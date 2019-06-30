@@ -114,7 +114,7 @@ def load_criteo_uplift_prediction(
     -------
     dataset : dict object with the following attributes:
 
-    dataset.DESCR : str
+    dataset.description : str
         Description of the Criteo Uplift Prediction dataset.
 
     dataset.data : ndarray, shape (25309483, 11)
@@ -158,7 +158,7 @@ def load_criteo_uplift_prediction(
 
     drop_names = ['exposure', 'visit', 'conversion', 'treatment']
     dataset = {
-        'DESCR': description,
+        'description': description,
         'data': df.drop(drop_names, axis=1).values,
         'feature_names': np.array([name for name in df.columns if name not in drop_names]),
         'treatment': df['treatment'].values,

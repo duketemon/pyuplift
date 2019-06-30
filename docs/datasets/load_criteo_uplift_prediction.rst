@@ -17,15 +17,15 @@ For privacy reasons the data has been sub-sampled non-uniformly so that the orig
 Feature names have been anonymized and their values randomly projected so as to keep predictive power while making it practically impossible to recover the original features or user context.
 
 +--------------------------+------------+
-|Features                  |         11 |
+| Features                 |         11 |
 +--------------------------+------------+
-|Treatment                 |          2 |
+| Treatment                |          2 |
 +--------------------------+------------+ 
-|Samples total             | 25,309,483 |
+| Samples total            | 25,309,483 |
 +--------------------------+------------+ 
-|Average visit rate        |    0.04132 |
+| Average visit rate       |    0.04132 |
 +--------------------------+------------+ 
-|Average conversion rate   |    0.00229 |
+| Average conversion rate  |    0.00229 |
 +--------------------------+------------+
 
 More information about dataset you can find in
@@ -40,7 +40,7 @@ the `official dataset description <http://ailab.criteo.com/criteo-uplift-predict
 +-----------------+---------------------------------------------------------------------------------------------------------------------+
 | **Returns:**    | | **dataset**: dict                                                                                                 |
 |                 | |   Dictionary object with the following attributes:                                                                |
-|                 | | **dataset.DESCR** : str                                                                                           |
+|                 | | **dataset.description** : str                                                                                     |
 |                 | |   Description of the Criteo Uplift Prediction dataset.                                                            |
 |                 | | **dataset.data**: numpy ndarray of shape (25309483, 11)                                                           |
 |                 | |   Each row corresponding to the 11 feature values in order.                                                       |
