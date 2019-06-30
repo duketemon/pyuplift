@@ -47,6 +47,7 @@ class Econometric(BaseModel):
 
         x_train = self.__get_matrix(X, t)
         self.model.fit(x_train, y)
+        return self
 
     def predict(self, X, t=None):
         """Predict an uplift for X.

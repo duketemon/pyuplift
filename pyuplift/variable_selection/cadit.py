@@ -47,6 +47,7 @@ class Cadit(BaseModel):
 
         z = self.__get_z_values(y, t)
         self.model.fit(X, z)
+        return self
 
     def predict(self, X, t=None):
         """Predict an uplift for X.
