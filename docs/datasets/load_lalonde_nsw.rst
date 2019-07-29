@@ -36,8 +36,6 @@ More information about dataset you can find `here <https://users.nber.org/~rdehe
 | **Parameters:** | | **data_home**: str, default=None                                                                                                     |
 |                 | |   Specify another download and cache folder for the dataset.                                                                         |
 |                 | |   By default the dataset will be stored in the data folder in the same folder.                                                       |
-|                 | | **load_raw_data**: bool, default=False                                                                                               |
-|                 | |   The loading of raw or preprocessed data?                                                                                           |
 |                 | | **download_if_missing**: bool, default=True                                                                                          |
 |                 | |   Download the dataset if it is not downloaded.                                                                                      |
 +-----------------+----------------------------------------------------------------------------------------------------------------------------------------+
