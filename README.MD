@@ -24,7 +24,7 @@ python setup.py install
 ```
 
 ## How to contribute
-Any contributions are always welcomed. There is a lot of ways how you can help to the project.
+Contributions are always welcomed. There is a lot of ways how you can help to the project.
 * Contribute to the [tests](https://github.com/duketemon/pyuplift/tree/master/tests) to make it more reliable.
 * Contribute to the [documentation](https://github.com/duketemon/pyuplift/tree/master/docs) to make it clearer for everyone.
 * Contribute to the [tutorials](https://github.com/duketemon/pyuplift/tree/master/tutorials) to share your experience with other users.
